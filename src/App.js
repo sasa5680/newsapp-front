@@ -1,24 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+
+import { Pipeline, Pipe } from "react-pipeline-component";
+import { BrowserRouter } from "react-router-dom";
+
+import { AccountProvider } from "./context/AccountContext";
+
+import Body from "./components/structure/Body";
+import Footer from "./components/structure/Footer";
+import Header from "./components/structure/Header";
+
+import theme from "./styles/theme";
+import Message from "./components/Message";
+import Router from "./router/Router";
+import { ThemeProvider } from "styled-components";
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ThemeProvider theme={theme}>
+        <QueryClientProvider client={queryClient}>
+          <Pipeline
+            components={[
+              <AccountProvider children={<Pipe />} />,
+              <BrowserRouter>
+                <Header />
+                <Body>
+                  <Router />
+                </Body>
+                <Message />
+                <Footer />
+                <ReactQueryDevtools initialIsOpen={false} />
+              </BrowserRouter>,
+            ]}
+          />
+        </QueryClientProvider>
+      </ThemeProvider>
+    </>
   );
 }
 
