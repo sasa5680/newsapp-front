@@ -26,8 +26,8 @@ export default function Router() {
   return (
     <Switch>
       <Route exact path="/" component={MainPage}></Route>
-      <Route exact path="/edit" component={EditNews}></Route>
-      <Route exact path="/update/:id" component={UpdateNews}></Route>
+      <PrivateRoute Route exact path="/edit" component={EditNews}></PrivateRoute>
+      <PrivateRoute exact path="/update/:id" component={UpdateNews}></PrivateRoute>
       <Route exact path="/news/:id" component={NewsPage}></Route>
       <Route exact path="/cate/:cate" component={CatePage}></Route>
       <Route exact path="/search" component={SearchPage}></Route>
