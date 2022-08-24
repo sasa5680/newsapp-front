@@ -108,7 +108,7 @@ export default function SignupPage() {
             <Logo></Logo>
           </LogoBox>
           <LogoTextBox>
-            <LogoText fontSize={"3vw"}></LogoText>
+            <LogoText></LogoText>
           </LogoTextBox>
         </TitleBox>
         <FormBox>
@@ -345,6 +345,10 @@ const CardBox = styled.div`
   margin-right: auto;
   margin-top: 30px;
   margin-bottom: 30px;
+
+  @media screen and (max-width: 700px) {
+    width: 100%;
+  }
 `;
 
 const TitleBox = styled.div`
@@ -357,6 +361,7 @@ const TitleBox = styled.div`
 const LogoBox = styled.div`
   width: 100px;
   height: 50px;
+  font-size: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -364,8 +369,12 @@ const LogoBox = styled.div`
 `;
 
 const LogoTextBox = styled.div`
-    margin-left: 50px;
-`
+  margin-left: 50px;
+  font-size: 30px;
+  @media screen and (max-width: 550px) {
+    margin-left: 20px;
+  }
+`;
 
 const FormBox = styled.form`
   width: 100%;
@@ -384,11 +393,16 @@ const Error = styled.div`
 
 const ItemBox = styled.div`
   display: flex;
-  //height: ${(props) => (props.height || "35px")};
+  //height: ${(props) => props.height || "35px"};
   width: 90%;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 20px;
+
+  @media screen and (max-width: 550px) {
+    display: block;
+    margin-bottom: 5px;
+  }
 `;
 
 const LableBox = styled.div`
@@ -399,6 +413,10 @@ const LableBox = styled.div`
   grid-gap: 10px;
   font-size: 23px;
   height: 40px;
+  @media screen and (max-width: 550px) {
+    width: 100%;
+    margin-left: 5px;
+  }
 `;
 
 const InputBox = styled.div`
@@ -412,6 +430,10 @@ const InputBox = styled.div`
     align-items: center;
     display: flex;
   `}
+
+  @media screen and (max-width: 550px) {
+    width: 100%;
+  }
 `;
 
 const InputWrapper = styled.div`

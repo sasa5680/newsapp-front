@@ -50,6 +50,7 @@ export default function OffCanvas({ children }) {
           <Close onClick={toggle} />
         </div>
         {content}
+        <Line />
         <MenuLink to={`/signup`} onClick={toggle}>
           SEARCH
         </MenuLink>
@@ -60,18 +61,6 @@ export default function OffCanvas({ children }) {
     </>
   );
 }
-
-const IconStyle = css`
-  
-  color: black;
-  font-size: 30px;
-  cursor: pointer;
-
-  :hover {
-    color: white;
-  }
-`;
-
 
 const Show = styled.div`
   
@@ -91,11 +80,11 @@ const Close = styled.div`
 
 const Body = styled.div`
   height: 100vh;
-  width: 300px;
+  width: 85vw;
   position: fixed;
   background-color: #333;
   top: 0;
-  right: ${(props) => (props.active ? "-300px" : "0px")};
+  right: ${(props) => (props.active ? "-85vw" : "0px")};
   z-index: 100;
 
   transition: 0.3s;
@@ -113,4 +102,13 @@ const MenuLink = styled(Link)`
   :hover {
     color : ${({ theme }) => theme.colors.primary};
   }
+`;
+
+const Line = styled.div`
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 3px;
+  background-color: ${({ theme }) => theme.colors.primary};
+  margin-top: 20px;
 `;
