@@ -53,7 +53,7 @@ export async function deleteNews(id){
 //뉴스 목록으로 읽어오기(관리자 전용)
 export async function newsList(data){
   
-  const URL = NEWS_API_URL + "/admin"+ queryBuilder(data);
+  const URL = NEWS_API_URL + "/admin"+ queryBuilder(data) + "&sort=newsId,desc";
   const res = await axiosWithToken.get(URL);
 
   return res;      
@@ -61,7 +61,7 @@ export async function newsList(data){
 
 //뉴스 목록으로 읽어오기(일반 유저용)
 export async function readNewsListUser(data) {
-  const URL = NEWS_API_URL + "/user" + queryBuilder(data);
+  const URL = NEWS_API_URL + "/user" + queryBuilder(data) + "&sort=newsId,desc";
   const res = await axios.get(URL);
 
   return res;
@@ -70,7 +70,7 @@ export async function readNewsListUser(data) {
 //유저 작성 뉴스들 가져오기
 export async function readUserNews({userName, page, size}) {
   
-  const URL = NEWS_API_URL + `/usernews/${userName}?page=${page}&size=${size}`;
+  const URL = NEWS_API_URL + `/usernews/${userName}?page=${page}&size=${size}&sort=newsId,desc"`;
   const res = await axios.get(URL);
 
   return res;

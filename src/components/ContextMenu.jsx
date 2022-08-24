@@ -22,11 +22,10 @@ export default function ContextMenu({ menu = [], children }) {
 
   useEffect(() => {
     document.addEventListener("click", handleClick);
-    
-
     return () => {
       document.removeEventListener("click", handleClick);
-
+      document.removeEventListener("wheel", blockWheel, { passive: false });
+      window.removeEventListener("scroll", blockScroll);      
     };
   }, []);
 
@@ -45,7 +44,6 @@ export default function ContextMenu({ menu = [], children }) {
 
     }
     return () => {
-      
     }
   }, [state.show]);
   

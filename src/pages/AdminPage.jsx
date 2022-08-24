@@ -20,6 +20,8 @@ export default function AdminPage({}) {
   const { openModal, startLoading, openSuccess, openFail, ConfirmModal } =
     ModalConfirm();
 
+  //뉴스 리스트
+
   //검색 조건
   const [newsState, setNewsState] = useState({
     page: 0,
@@ -33,9 +35,13 @@ export default function AdminPage({}) {
     isError,
     isLoading,
     data: newsItems,
-  } = useQuery(["News", newsState.page], () => newsList(newsState));  
+  } = useQuery(["News", newsState.page], () => newsList(newsState));
 
-  console.log(newsItems)
+  const pageFetch = (page) => {
+    console.log(page)
+    setNewsState((state)=> { return {...state, page: page-1}});
+  }
+
   const newsDelteMutation = useMutation(deleteNews, {
     onMutate: (variable) => {
       startLoading();
@@ -75,7 +81,6 @@ export default function AdminPage({}) {
   //뉴스 요소 렌더링
   const list = newsItems?.data?.content?.map((news, index) => {
     const menu = [];
-    console.log(news.newsMain);
     
     //메뉴 설정
     //뉴스가 승인되지 않았으면
@@ -195,7 +200,11 @@ export default function AdminPage({}) {
             <SearchBarBox>
               <SearchBar />
             </SearchBarBox>
-            <CateOption onChange={(option)=>{console.log(option)}}/>
+            <CateOption
+              onChange={(option) => {
+                console.log(option);
+              }}
+            />
           </SearchBox>
         </TitleBox>
         <TitleList>
@@ -206,7 +215,10 @@ export default function AdminPage({}) {
         </TitleList>
         <ItemList>{list}</ItemList>
         <PageBox>
-          <Pagenation total={newsItems?.data?.totalPages} />
+          <Pagenation
+            total={newsItems?.data?.totalPages}
+            onChange={pageFetch}
+          />
         </PageBox>
       </Body>
       <ConfirmModal />
