@@ -28,6 +28,8 @@ import PageExitAlert from "./PageExitAlert";
 
 export default function NewsEditor({initData, onSubmit, exitState = false}){
 
+  console.log(initData)
+
   const {openSuccess, openFail, ModalView } = ModalTask();
 
   const [preModal, setPreModal] = useState(false);
@@ -87,7 +89,7 @@ export default function NewsEditor({initData, onSubmit, exitState = false}){
       <FormItemBox>
         <TitleBox>뉴스 TITLE</TitleBox>
         <textarea
-          value={newsState.newsTitle}
+          value={newsState?.newsTitle}
           style={{ fontSize: "25px" }}
           class="form-control"
           id="exampleFormControlTextarea1"
@@ -97,14 +99,14 @@ export default function NewsEditor({initData, onSubmit, exitState = false}){
           }}
         />
         <WordCounter>
-          {newsState.newsTitle.length}/{titleMax}
+          {newsState?.newsTitle?.length}/{titleMax}
         </WordCounter>
       </FormItemBox>
 
       <FormItemBox>
         <TitleBox>뉴스 SUBTITLE</TitleBox>
         <textarea
-          value={newsState.newsSubTitle}
+          value={newsState?.newsSubTitle}
           style={{ fontSize: "25px" }}
           class="form-control"
           id="exampleFormControlTextarea1"
@@ -117,7 +119,7 @@ export default function NewsEditor({initData, onSubmit, exitState = false}){
           }}
         />
         <WordCounter>
-          {newsState.newsSubTitle.length}/{subTitleMax}
+          {newsState?.newsSubTitle?.length}/{subTitleMax}
         </WordCounter>
       </FormItemBox>
 

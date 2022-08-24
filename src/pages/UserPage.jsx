@@ -35,11 +35,10 @@ export default function UserPage({match}){
     onMutate: (variable) => {},
     onError: (error, variable, context) => {},
     onSuccess: (data, variables, context) => {
-      console.log(data)
       setPageState({
         //...pageState,
         list: [...pageState.list, ...data.data.content],
-        page: data.data.page,
+        page: data.data.number,
         isLast: data.data.last,
       });
     },

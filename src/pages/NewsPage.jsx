@@ -105,7 +105,7 @@ export const NewsForm = ({width, newsData}) => {
 
       {/* 뉴스 메인 */}
       <div class="ck-content" style={{ width: "100%", marginTop: "20px" }}>
-        {parse(newsData?.newsContent)}
+        {parse(newsData?.newsContent || "")}
       </div>
 
       {/* 작성자 정보 박스 */}

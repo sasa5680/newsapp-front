@@ -24,7 +24,7 @@ export default function ScrollLoading({
           observer.unobserve(entry.target);
           //새로 데이터를 요청한다.
           fetch(page + 1);
-          console.log("fetch new");
+          console.log("fetch new", page);
         }
       });
     };

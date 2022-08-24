@@ -22,7 +22,7 @@ export default function CatePage({ match }) {
     onSuccess: (data, variables, context) => {
       setPageState({
         list: [...pageState.list, ...data.data.content],
-        page: data.data.page,
+        page: data.data.number,
         isLast: data.data.last,
       });
     },
