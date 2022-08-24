@@ -489,8 +489,13 @@ const WriterProfile = styled.img`
 `;
 
 const ButtonBox = styled.div`
-    width: 50%;
-    height: 40px;
-    margin-left: auto;
-    margin-right: auto;
-`
+  width: 50%;
+  height: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+
+  @media screen and (max-width: 550px) {
+    width: 80%;
+  }
+`;
