@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
+import { useMediaQuery } from "react-responsive";
 import { Link } from "react-router-dom";
 
-import { LogoText, Logo } from "../Logo";
-
 import styled from "styled-components";
-
+import { LogoText, Logo } from "../Logo";
 import { useAccountState, useAccountDispatch } from "../../context/AccountContext"
+import OffCanvas from "../OffCanvas";
 
 export default function Header() {
 
@@ -14,6 +14,10 @@ export default function Header() {
 
   const onLogout = () => accountDispatch({ type: "LOGOUT" });
 
+  let point = useMediaQuery({ query: "(max-width: 900px)"});
+
+  console.log(point)
+  
   return (
     <HeaderBox>
       {/* 로고 */}
@@ -28,62 +32,71 @@ export default function Header() {
         </LogoBox>
       </MenuLink>
       {/* 메뉴 리스트 */}
-      <MenuBox>
-        <MenuItem>
-          <MenuLink to={`/cate/science`}>SCIENCE</MenuLink>
-        </MenuItem>
-        <MenuItem>
-          <MenuLink to={`/cate/economy`}>ECONOMY</MenuLink>
-        </MenuItem>
-        <MenuItem>
-          <MenuLink to={`/cate/world`}>WORLD</MenuLink>
-        </MenuItem>
-        <MenuItem>
-          <MenuLink to={`/cate/tech`}>TECH</MenuLink>
-        </MenuItem>
-        <MenuItem>
-          <MenuLink to={`/about`}>ABOUT</MenuLink>
-        </MenuItem>
-        {accountState.userRole === "ADMIN" &&
-          <MenuItem>
-            <MenuLink to={`/admin`}>ADMIN</MenuLink>
-          </MenuItem>
-        }
-      </MenuBox>
-      {/* 오른쪽 메뉴박스 */}
-      <MenuBoxRight>
-        {accountState.isLogin ? (
-          <>
+      {!point ? (
+        <>
+          <MenuBox>
             <MenuItem>
-              <MenuLink to={`/user/${accountState.userName}`}>
-                {accountState.userName}
-              </MenuLink>
+              <MenuLink to={`/cate/science`}>SCIENCE</MenuLink>
             </MenuItem>
             <MenuItem>
-              <MenuLink
-                onClick={() => {
-                  onLogout();
-                }}
-              >
-                LOGOUT
-              </MenuLink>
-            </MenuItem>
-          </>
-        ) : (
-          <>
-            <MenuItem>
-              <MenuLink to={`/signin`}>SIGN IN</MenuLink>
+              <MenuLink to={`/cate/economy`}>ECONOMY</MenuLink>
             </MenuItem>
             <MenuItem>
-              <MenuLink to={`/signup`}>SIGN UP</MenuLink>
+              <MenuLink to={`/cate/world`}>WORLD</MenuLink>
             </MenuItem>
-          </>
-        )}
+            <MenuItem>
+              <MenuLink to={`/cate/tech`}>TECH</MenuLink>
+            </MenuItem>
+            <MenuItem>
+              <MenuLink to={`/about`}>ABOUT</MenuLink>
+            </MenuItem>
+            {accountState.userRole === "ADMIN" && (
+              <MenuItem>
+                <MenuLink to={`/admin`}>ADMIN</MenuLink>
+              </MenuItem>
+            )}
+          </MenuBox>
+          {/* 오른쪽 메뉴박스 */}
+          <MenuBoxRight>
+            {accountState.isLogin ? (
+              <>
+                <MenuItem>
+                  <MenuLink to={`/user/${accountState.userName}`}>
+                    {accountState.userName}
+                  </MenuLink>
+                </MenuItem>
+                <MenuItem>
+                  <MenuLink
+                    onClick={() => {
+                      onLogout();
+                    }}
+                  >
+                    LOGOUT
+                  </MenuLink>
+                </MenuItem>
+              </>
+            ) : (
+              <>
+                <MenuItem>
+                  <MenuLink to={`/signin`}>SIGN IN</MenuLink>
+                </MenuItem>
+                <MenuItem>
+                  <MenuLink to={`/signup`}>SIGN UP</MenuLink>
+                </MenuItem>
+              </>
+            )}
 
-        <MenuItem>
-          <MenuLink to={`/search`}>search</MenuLink>
-        </MenuItem>
-      </MenuBoxRight>
+            <MenuItem>
+              <MenuLink to={`/search`}>search</MenuLink>
+            </MenuItem>
+          </MenuBoxRight>
+        </>
+      ) : (
+        /* 모바일 시 보여주는 OffCanvas */
+        <OffCanvasBox>
+          <OffCanvas />
+        </OffCanvasBox>
+      )}
     </HeaderBox>
   );
 }
@@ -149,3 +162,12 @@ const MenuBoxRight = styled.div`
   margin-left: auto;
   display: flex;
 `;
+
+const OffCanvasBox = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 20px;
+`

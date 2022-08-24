@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Link, useHistory} from "react-router-dom";
 import { useQuery, useMutation } from "react-query";
-
+import Select from "react-select";
 
 import styled from "styled-components";
 import ContextMenu from "../components/ContextMenu";
@@ -10,7 +10,8 @@ import ModalConfirm from "../components/modal/ModalConfirm";
 import Pagenation from "../components/Pagenation";
 
 import { deleteNews, newsApprove, newsList, newsSetMain } from "../service/NewsApi";
-import { NEWS_MAIN } from "../const";
+import { NEWS_CATE, NEWS_MAIN } from "../const";
+import CateOption from "../components/elements/CateOption";
 
 export default function AdminPage({}) {
 
@@ -189,9 +190,13 @@ export default function AdminPage({}) {
       <Body>
         <TitleBox>
           ADMIN PAGE
-          <SearchBarBox>
-            <SearchBar />
-          </SearchBarBox>
+          {/* 검색 박스 */}
+          <SearchBox>
+            <SearchBarBox>
+              <SearchBar />
+            </SearchBarBox>
+            <CateOption onChange={(option)=>{console.log(option)}}/>
+          </SearchBox>
         </TitleBox>
         <TitleList>
           <Title>id</Title>
@@ -222,11 +227,18 @@ const TitleBox = styled.div`
   align-items: center;
 `
 
-const SearchBarBox = styled.div`
-  width: 350px;
+const SearchBox = styled.div`
+  display: flex;
   height: 50px;
   margin-left: 30px;
+  display: flex;
+`;
+
+const SearchBarBox = styled.div`
+  width: 300px;
+  height: 100%;
   font-size: 25px;
+  display: flex;
 `
 
 const TitleList = styled.ul`
