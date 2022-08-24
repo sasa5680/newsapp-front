@@ -85,7 +85,15 @@ const TextBox = styled.div`
   margin-top: ${({ theme }) => theme.margins.marginTop};
   margin-left: auto;
   margin-right: auto;
-  font-size: 3vw;
+  font-size: 40px;
+
+  @media screen and (max-width: 700px) {
+    width: 100%;
+    margin-top: 20px;
+    display: block;
+    font-size: 30px;
+    text-align: center;
+  }
 `;
 
 const ColorTextBox = styled.div`
@@ -94,18 +102,20 @@ const ColorTextBox = styled.div`
 
 const SearchBox = styled.div`
 
-  margin-top: 50px;
+  margin-top: 30px;
   margin-left: auto;
   margin-right: auto;
   width: 40%;
+  min-width: 300px;
   position: relative;
   display: flex;
-  aspect-ratio: 10 / 1;
+  height: 50px;
+
 `;
 
 const SearchBar = styled.input`
   width: 100%;
-  border: 5px solid ${({ theme }) => theme.colors.primary};
+  border: 2px solid ${({ theme }) => theme.colors.primary};
   border-right: none;
   padding: 5px;
   height: 100%;
@@ -123,7 +133,7 @@ const SearchButton = styled.button`
   color: #fff;
   border-radius: 0 5px 5px 0;
   cursor: pointer;
-  font-size: 2vw;
+  font-size: 20px;
 `;
 
 const CardContainer = styled.div`
