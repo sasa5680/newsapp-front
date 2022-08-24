@@ -125,8 +125,8 @@ const ContentBox = styled.div`
   width: ${(props) => props.width || "70%"};
   margin-top: 30px;
 
-  @media screen and (max-width: 800px) {
-   background-color: red;
+  @media screen and (max-width: 700px) {
+   width: 100%;
   }
 `;
 
@@ -135,24 +135,31 @@ const CateBox = styled.div`
   font-size: 1.2vw;
   font-weight: 650;
   color: ${({ theme }) => theme.colors.primary};
+
+  @media screen and (max-width: 700px) {
+    font-size: 3vw;
+  }
 `;
 
-const TitleBox = styled.div`
+const TitleBox = styled.h2`
   width: 100%;
-  font-size: 3vw;
+  //font-size: 3vw;
   font-weight: ${({ theme }) => theme.fontWeight.thick};
 `;
-const SubTitleBox = styled.div`
-  ${StyleSubTitle}
+const SubTitleBox = styled.h3`
+  //${StyleSubTitle}
   color: ${({ theme }) => theme.colors.gray};
   width: 100%;
-  font-size: 1.5vw;
+  font-size: 20px;
   margin-top: 5px;
+  @media screen and (max-width: 700px) {
+    font-size: 15px;
+  }
 `;
 
 const TimeBox = styled.div`
   color: #696969;
-  font-size: 1.1vw;
+  font-size: 15px;
   font-weight: ${({ theme }) => theme.fontWeight.thin};
   display: flex;
   align-items: center;
@@ -177,12 +184,16 @@ const Line = styled.div`
 const ImageBox = styled.div`
   max-width: 100%;
   aspect-ratio: 16 / 9;
-`
+
+  @media screen and (max-width: 700px) {
+    width: 100%;
+  }
+`;
 
 const Image = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: scale-down;
+  //object-fit: scale-down;
 `;
 
 const WriterBox = styled.div`
@@ -191,7 +202,7 @@ const WriterBox = styled.div`
 
   margin-top: 10px;
   width: 100%;
-  height: 2.5vw;
+  height: 40px;
 
   font-weight: ${({ theme }) => theme.fontWeight.thin};
   color: #696969;
@@ -204,8 +215,8 @@ const WriterProfile = styled.img`
 `;
 
 const WriterName = styled.div`
-  font-size: 1.2vw;
-  margin-right: 1vw;
+  font-size: 20px;
+  margin-right: 10px;
 `;
 
 const RelatedNewsBox = styled.div`

@@ -62,9 +62,17 @@ export default function SearchPage({}){
           <i class="fa fa-search"></i>
         </SearchButton>
       </SearchBox>
-      <CardContainer>
-        {newsItems.map((item)=>{return <CardLiner newsData={item}/>})}
-      </CardContainer>
+      <CardBox>
+          {newsItems.map((item) => {
+            return (
+              <CardContainer>
+                <CardLiner newsData={item} />
+              </CardContainer>
+            );
+          })}
+        
+      </CardBox>
+
       {!pageState.last && (
         <ScrollLoading
           fetch={searchMutation.mutate(pageState)}
@@ -98,6 +106,10 @@ const TextBox = styled.div`
 
 const ColorTextBox = styled.div`
   color: ${({ theme }) => theme.colors.primary};
+  margin-left: 11px;
+  @media screen and (max-width: 700px) {
+    margin-left: 0px;
+  }
 `;
 
 const SearchBox = styled.div`
@@ -136,13 +148,19 @@ const SearchButton = styled.button`
   font-size: 20px;
 `;
 
-const CardContainer = styled.div`
-  
+const CardBox = styled.div`
   width: 70%;
   margin-top: 30px;
+`;
+
+const CardContainer = styled.div`
+  
+
   &:first-child {
     border-top: 1px solid #525252;
   }
+
+  
 
   border-bottom: 1px solid #525252;
 

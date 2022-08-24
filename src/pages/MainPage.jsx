@@ -37,12 +37,12 @@ export default function MainPage() {
           newsData?.data.filter((news) => news.newsMain === NEWS_MAIN.MAIN)[0]
         }
       />
-      <TodayNewsSub>
+      {/* <TodayNewsSub>
         <CardSmall newsData={newsData} width={"25%"} />
         <CardSmall newsData={newsData} width={"25%"} />
         <CardSmall newsData={newsData} width={"25%"} />
         <CardSmallTest newsData={newsData} width={"25%"} color={"#151824"} />
-      </TodayNewsSub>
+      </TodayNewsSub> */}
 
       <CateTitle>{NEWS_CATE.ECONOMY}</CateTitle>
       <CardLiner
@@ -63,9 +63,15 @@ const TodayNewsSub = styled.div`
   width: 100%;
 
 `
-
 const CateTitle = styled.div`
-  font-size: 50px;
+  font-size: 30px;
   margin-top: 20px;
   margin-bottom: 10px;
-`
+  color: ${({ theme }) => theme.colors.secondary};
+  
+  @media screen and (max-width: 700px) {
+    font-size: 20px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+`;
