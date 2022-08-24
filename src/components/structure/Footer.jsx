@@ -15,7 +15,7 @@ export default function Footer() {
 
             {/* 로고 텍스트 */}
             <LogoTextBox>
-              <LogoText fontSize={"35px"} />
+              <LogoText fontSize={"30px"} />
             </LogoTextBox>
           </LogoBox>
 
@@ -58,6 +58,8 @@ export default function Footer() {
   );
 }
 
+const point = "550px";
+
 const FooterDiv = styled.div`
   width: 100%;
   //height: 24vh;
@@ -75,10 +77,16 @@ const InnerBox = styled.div`
 `;
 
 const Mainbox = styled.div`
-
   display: flex;
   //align-items: center;
   //background-color: beige;
+
+  @media screen and (max-width: 550px) {
+    display: block;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
 `;
 
 const LogoTextBox = styled.div`
@@ -92,12 +100,29 @@ const LogoBox = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
+  font-size: 35px;
+
+  @media screen and (max-width: 550px) {
+    width: 100px;
+    //display: flex;
+    font-size: 30px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
 
 const InfoBox = styled.div`
   margin-left: auto;
   display: flex;
   grid-gap: 1.5vw;
+
+  @media screen and (max-width: 550px) {
+    //align-items: center;
+    justify-content: center;
+    text-align: center;
+    grid-gap: 40px;
+    margin-top: 20px;
+  }
 `;
 
 const ContentBox = styled.div`
@@ -125,7 +150,7 @@ const SocialBox = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
-  grid-gap: 2vw;
+  grid-gap: 20px;
   font-size: 35px;
 `;
 

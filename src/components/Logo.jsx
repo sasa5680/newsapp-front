@@ -5,7 +5,7 @@ import styled from "styled-components";
 export function LogoText({fontSize}) {
 
   return (
-    <LogoTextBox fontSize={fontSize}>
+    <LogoTextBox>
       <div>OPE</div>
       <ColorWord>NN</ColorWord>
       <div>WES</div>
@@ -15,7 +15,7 @@ export function LogoText({fontSize}) {
 }
 
 const LogoTextBox = styled.div`
-  font-size: ${(props) => props.fontSize || "20px"};
+  //font-size: ${(props) => props.fontSize || "20px"};
   font-weight: ${(props) => props.fontWeight || "700"};
   display: flex;
 `;
