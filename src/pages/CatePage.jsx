@@ -1,12 +1,14 @@
 import React, {useState } from "react";
 import { useEffect } from "react";
-import { useMutation } from "react-query";
+import { useQuery, useMutation } from "react-query";
 
 import styled from "styled-components";
+import CardBig from "../components/newsCard/CardBig";
 import CardLiner from "../components/newsCard/CardLiner";
 import ScrollLoading from "../components/ScrollLoading";
+import { NEWS_MAIN } from "../const";
 
-import { readNewsListUser } from "../service/NewsApi";
+import { readNewsListUser, readNews } from "../service/NewsApi";
 
 export default function CatePage({ match }) {
   
@@ -16,6 +18,10 @@ export default function CatePage({ match }) {
     isLast: false,
   });
 
+  const { isLoading, data: cateMain } = useQuery(
+    ["CateMain", match.params.cate],
+    () => readNewsListUser({main: NEWS_MAIN.CATEMAIN, cate: match.params.cate, page: 0, size: 8 })
+  );  
   const searchMutation = useMutation(readNewsListUser, {
     onMutate: (variable) => {},
     onError: (error, variable, context) => {},
@@ -30,7 +36,7 @@ export default function CatePage({ match }) {
   });
 
   const fetch = (page) => {
-    searchMutation.mutate({ cate: match.params.cate, page: page, size: 8 });
+    searchMutation.mutate({main: NEWS_MAIN.NORMAL, cate: match.params.cate, page: page, size: 8 });
   };
 
   //match의 param 바뀌면 페이지 리셋
@@ -44,8 +50,9 @@ export default function CatePage({ match }) {
   return (
     <>
       <h1>{match.params.cate}</h1>
+      <CardBig newsData={cateMain?.data?.content[0]} />
       <NewsList>
-        {pageState.list.map((item)=>{
+        {pageState.list.map((item) => {
           return (
             <CardContainer>
               <CardLiner newsData={item}></CardLiner>
@@ -70,6 +77,7 @@ const NewsList = styled.div`
   
   width: 75%;
   row-gap: 20px;
+  margin-top: 30px;
 `
 
 const CardContainer = styled.div`
