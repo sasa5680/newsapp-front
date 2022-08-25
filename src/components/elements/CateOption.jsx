@@ -13,7 +13,8 @@ export default function CateOption({onChange, width, fontSize}){
   return (
     <Select
       styles={{ width: `${width}`, fontSize: `${fontSize}` }}
-      defaultValue={options.filter((option) => option.label === "world")[0]}
+      //defaultValue={options.filter((option) => option.label === "world")[0]}
+      placeholder={"Cate"}
       options={options}
       onChange={(option) => {
         onChange(option);

@@ -1,10 +1,11 @@
 import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
 export default function SearchBar(props){
   const {
     onChange =(e) => {},
-    onSearch =() => {},
+    onSearch =(e) => {},
     id,
     label,
     placeholder,
@@ -25,15 +26,18 @@ export default function SearchBar(props){
     iconSize,
   } = props  
 
+  const [search, setSearch] = useState("");
+
   return (
     <>
       <SearchBox>
         <SearchBarStyle
           onChange={(e) => {
             onChange(e.target.value);
+            setSearch(e.target.value);
           }}
         />
-        <SearchButton onClick={onSearch}>
+        <SearchButton onClick={()=>onSearch(search)}>
           <i class="fa fa-search"></i>
         </SearchButton>
       </SearchBox>
@@ -51,7 +55,7 @@ const SearchBox = styled.div`
 
 const SearchBarStyle = styled.input`
   width: 100%;
-  border: 5px solid ${({ theme }) => theme.colors.primary};
+  border: 2px solid ${({ theme }) => theme.colors.primary};
   border-right: none;
   padding: 5px;
   height: 100%;

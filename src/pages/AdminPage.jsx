@@ -12,6 +12,23 @@ import Pagenation from "../components/Pagenation";
 import { deleteNews, newsApprove, newsList, newsSetMain } from "../service/NewsApi";
 import { NEWS_CATE, NEWS_MAIN } from "../const";
 import CateOption from "../components/elements/CateOption";
+import Button from "../components/elements/Button";
+
+//카테고리 옵션들
+const optionApproved = [
+  { value: "", label: "none" },
+  { value: "true", label: "true" },
+  { value: "false", label: "false" },
+];
+
+  //카테고리 옵션들
+const optionsMain = [
+  { value: "", label: "none" },
+  { value: NEWS_MAIN.NORMAL, label: "normal" },
+  { value: NEWS_MAIN.CATEMAIN, label: "cate" },
+  { value: NEWS_MAIN.MAIN, label: "main" },
+];
+
 
 export default function AdminPage({}) {
 
@@ -23,25 +40,57 @@ export default function AdminPage({}) {
   //뉴스 리스트
 
   //검색 조건
-  const [newsState, setNewsState] = useState({
+  const initState = {
     page: 0,
     size: 8,
     query: "",
     cate: "",
     approved: null,
-  });
+    //main: "",
+  };
+
+  const [newsState, setNewsState] = useState(initState);
 
   const {
     isError,
     isLoading,
     data: newsItems,
-  } = useQuery(["News", newsState.page], () => newsList(newsState));
+  } = useQuery(["News", newsState], () => newsList(newsState));
 
+  //페이지 이동 시
   const pageFetch = (page) => {
     console.log(page)
     setNewsState((state)=> { return {...state, page: page-1}});
   }
 
+  //검색어 조회 시
+  const onSearch = (e) => {
+    if(e.length <= 3) return;
+    setNewsState((state) => {return { ...state, query: e, page: 0};});
+  }
+
+  //카테고리 조회 시
+  const onCate = (option) => {
+    setNewsState((state) => {return { ...state, cate:option.value, page: 0};});
+  }
+
+  /* 승인됨 여부로 조회 시 */
+  const onApproved = (option) => {
+    console.log(option)
+    setNewsState((state) => {return { ...state, approved:option.value ,page: 0};});
+  }
+
+  /* 메인 여부로 조회 시 */
+  const onMain = (option) => {
+    setNewsState((state) => {return { ...state, main:option.value ,page: 0};});
+  }
+
+  //검색어 조건 리셋
+  const reset = () => {
+    window.location.reload();
+  }
+
+  /* 뉴스 삭제 뮤테이션 */
   const newsDelteMutation = useMutation(deleteNews, {
     onMutate: (variable) => {
       startLoading();
@@ -54,6 +103,7 @@ export default function AdminPage({}) {
     },
   });    
 
+  /* 뉴스 승인 뮤테이션 */
   const newsApproveMutation = useMutation(newsApprove, {
     onMutate: (variable) => {
       startLoading();
@@ -66,6 +116,7 @@ export default function AdminPage({}) {
     },
   });
 
+  /* 뉴스 메인 설정 뮤테이션 */
   const newsMainMutation = useMutation(newsSetMain, {
     onMutate: (variable) => {
       startLoading();
@@ -82,7 +133,7 @@ export default function AdminPage({}) {
   const list = newsItems?.data?.content?.map((news, index) => {
     const menu = [];
     
-    //메뉴 설정
+    //컨텍스트 메뉴 설정
     //뉴스가 승인되지 않았으면
     if (!news.newsApproved){
       menu.push({
@@ -198,13 +249,32 @@ export default function AdminPage({}) {
           {/* 검색 박스 */}
           <SearchBox>
             <SearchBarBox>
-              <SearchBar />
+              <SearchBar
+                onSearch={(e) => {
+                  onSearch(e);
+                }}
+              />
             </SearchBarBox>
-            <CateOption
-              onChange={(option) => {
-                console.log(option);
-              }}
-            />
+            
+            {/* 카테고리 옵션 */}
+            <CateOptionBox>
+              <CateOption onChange={onCate} />
+            </CateOptionBox>
+            
+            {/* 승인됨 여부 */}
+            <CateOptionBox>
+              <Select options={optionApproved} placeholder={"approved"} onChange={onApproved}></Select>
+            </CateOptionBox>
+
+            {/* 메인 여부 */}
+            <CateOptionBox>
+              <Select options={optionsMain} placeholder={"main?"} onChange={onMain}></Select>
+            </CateOptionBox>
+            
+            {/* 리셋 버튼 */}
+            <ResetButtonBox>
+              <Button onClick={reset}>Reset</Button>
+            </ResetButtonBox>
           </SearchBox>
         </TitleBox>
         <TitleList>
@@ -251,6 +321,21 @@ const SearchBarBox = styled.div`
   height: 100%;
   font-size: 25px;
   display: flex;
+`
+
+const CateOptionBox = styled.div`
+  display: flex;
+  align-items: center;
+  background-color: aliceblue;
+  height: 100%;
+  margin-left: 20px;
+  font-size: 20px;
+`
+const ResetButtonBox = styled.div`
+  
+  height: 100%;
+  width: 100px;
+  margin-left: 20px;
 `
 
 const TitleList = styled.ul`
