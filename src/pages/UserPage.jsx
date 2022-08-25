@@ -138,13 +138,22 @@ const InnerBox = styled.div`
   width: 90%;
   margin-left: auto;
   margin-right: auto;
+
+  @media screen and (max-width: 700px) {
+    display: block;
+    align-items: center;
+  }
 `;
 
 const ProfileBox = styled.div`
-  
   width: 180px;
   height: 180px;
-`
+
+  @media screen and (max-width: 700px) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+`;
 
 const Profile = styled.img`
   border-radius: 50%;
@@ -156,28 +165,34 @@ const TextBox = styled.div`
   margin-left: 4vw;
   width: 50%;
 `
-const UserNameBox  =styled.div`
+const UserNameBox = styled.div`
   font-size: 40px;
   display: flex;
   align-items: center;
-`
+  
+  @media screen and (max-width: 700px) {
+    margin-top : 10px;
+  }
+`;
 const IntroBox = styled.div`
   font-size: 25px;
 `
 const NewsTitleBox = styled.div`
-  
   font-size: 50px;
   margin-top: 20px;
-`
+
+  @media screen and (max-width: 800px) {
+    font-size: 30px;
+  }
+`;
 
 const NewsBox = styled.div`
   width: 75%;
   margin-top: 10px;
-`
 
-const NewsList = styled.div`
-  width: 75%;
-  row-gap: 20px;
+  @media screen and (max-width: 800px) {
+    width: 100%;
+  }
 `;
 
 const CardContainer = styled.div`

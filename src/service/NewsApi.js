@@ -71,7 +71,7 @@ export async function readNewsListUser(data) {
 //유저 작성 뉴스들 가져오기
 export async function readUserNews({userName, page, size}) {
   
-  const URL = NEWS_API_URL + `/usernews/${userName}?page=${page}&size=${size}&sort=newsId,desc"`;
+  const URL = NEWS_API_URL + `/usernews/${userName}?page=${page}&size=${size}&sort=newsId,desc`;
   const res = await axios.get(URL);
 
   return res;

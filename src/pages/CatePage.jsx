@@ -49,7 +49,7 @@ export default function CatePage({ match }) {
   }, [match])
   return (
     <>
-      <h1>{match.params.cate}</h1>
+      <CateTitle>{match.params.cate}</CateTitle>
       <CardBig newsData={cateMain?.data?.content[0]} />
       <NewsList>
         {pageState.list.map((item) => {
@@ -73,12 +73,24 @@ export default function CatePage({ match }) {
   );
 }
 
+const CateTitle = styled.div`
+  font-size: 30px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+
+  color: ${({ theme }) => theme.colors.secondary};
+`;
+
 const NewsList = styled.div`
-  
   width: 75%;
   row-gap: 20px;
   margin-top: 30px;
-`
+
+  @media screen and (max-width: 800px) {
+    width: 100%;
+  }
+`;
 
 const CardContainer = styled.div`
   &:first-child {

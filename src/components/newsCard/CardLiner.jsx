@@ -1,10 +1,16 @@
 import React from "react";
+import { useMediaQuery } from "react-responsive";
 
 import { StyleTitle, StyleCate, StyleSubTitle } from "../../styles/Common";
 import styled from "styled-components";
 import ContentLink from "../ContentLink";
+import CardMobile from "./CardMobile";
 
 export default function CardLiner({newsData}) {
+
+    let isMobile = useMediaQuery({ query: "(max-width: 800px)" });
+
+    if (isMobile) return <CardMobile newsData={newsData} />;
 
     return (
       <ContentLink to={`/news/${newsData?.newsId}`}>

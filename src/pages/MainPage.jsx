@@ -64,14 +64,9 @@ const TodayNewsSub = styled.div`
 
 `
 const CateTitle = styled.div`
+  text-transform: uppercase;
   font-size: 30px;
   margin-top: 20px;
   margin-bottom: 10px;
   color: ${({ theme }) => theme.colors.secondary};
-  
-  @media screen and (max-width: 700px) {
-    font-size: 20px;
-    margin-top: 15px;
-    margin-bottom: 10px;
-  }
 `;

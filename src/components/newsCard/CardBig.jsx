@@ -9,7 +9,7 @@ import CardMobile from "./CardMobile";
 
 export default function CardBig({newsData}) {
 
-  let isMobile = useMediaQuery({ query: "(max-width: 1224px)" });
+  let isMobile = useMediaQuery({ query: "(max-width: 800px)" });
 
   if(isMobile) return <CardMobile newsData={newsData}/>
 
