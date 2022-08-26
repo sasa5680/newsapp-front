@@ -3,21 +3,38 @@ import styled from "styled-components";
 
 import { useQuery } from "react-query";
 import { userConfirmUUID } from "../service/UserApi";
+import { useEffect } from "react";
 
 export default function SignUpConfirmPage({match}){
     
   const UUID = match.params.uuid;  
-  const res = useQuery(
-    ["UUID", UUID],
-      userConfirmUUID(UUID),
-    {
-      retry: false,
-      //retryDelay: 1000000,
-      //cacheTime: 10000,
-    }
-  );  
 
-  console.log(res)
+  const [state, setState] = useState({
+    isLoading : false,
+    isSuccess: false,
+    isError: false,
+  })
+
+  useEffect(() => {
+    
+    const fetch = async () => {
+    try {
+
+      setState((state)=> {return {...state, isLoading:true}});
+      const res = await userConfirmUUID(UUID);
+      setState((state) => {
+        return { ...state, isLoading: false, isSuccess: true };
+      });
+      
+    } catch (error) {
+      setState((state) => {
+        return { ...state, isLoading: false, isError: true };
+      });      
+    }
+  }
+    fetch();
+  }, []);
+
 
   const Loading = () => {
     return <LoadingBox>Loading...</LoadingBox>
@@ -58,12 +75,10 @@ export default function SignUpConfirmPage({match}){
     );    
   }
 
-  
-   
   const Content = () => {
 
-    if (res.isLoading) return <Loading/>;
-    if (res.isError) return <Error/>;
+    if (state.isLoading) return <Loading/>;
+    if (state.isError) return <Error/>;
     
     return <Success/>
   }
@@ -92,9 +107,6 @@ const InfoBox = styled.div`
     width: 100%;
   }
 
-  @media screen and (max-width: 500px) {
-    height: 300px;
-  }
 `;
 
 const LoadingBox = styled.div`
