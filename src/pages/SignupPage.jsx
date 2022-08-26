@@ -59,7 +59,6 @@ export default function SignupPage() {
       },
       onSuccess: (data, variables, context) => {
         setValue("emailCheck", true);
-        trigger();
       },
     }
   );  
@@ -73,7 +72,7 @@ export default function SignupPage() {
       },
       onSuccess: (data, variables, context) => {
         setValue("nameCheck", true);
-        trigger()
+        //trigger()
       },
     }
   );  
@@ -158,7 +157,6 @@ export default function SignupPage() {
                   />
                   <CheckButton
                     disabled={emailCheckLoading}
-                    type="button"
                     onClick={() => {
                       userEmailCheck(watch("userEmail"));
                     }}
@@ -209,9 +207,7 @@ export default function SignupPage() {
                     })}
                   />
                   <CheckButton
-                    type="button"
                     onClick={() => {
-                      
                       userNameCheck(watch("userName"));
                     }}
                   >
@@ -327,7 +323,7 @@ export default function SignupPage() {
 
             {/* Submit Button */}
             <ButtonBox>
-              <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
+              <Button type="submit" onClick={handleSubmit(onSubmit)}>Submit</Button>
             </ButtonBox>
           </form>
         </FormBox>
@@ -441,8 +437,8 @@ const InputWrapper = styled.div`
   display: flex;
   border-radius: 5px;
   overflow: hidden;
-  border: 3px solid ${({ theme }) => theme.colors.primary};
-  background-color: ${({ theme }) => theme.colors.primary};
+  border: 4px solid ${({ theme }) => theme.colors.primary};
+  //background-color: ${({ theme }) => theme.colors.primary};
   
   width: 100%;
 `;
@@ -456,7 +452,7 @@ const StyledInput = styled.input`
   padding: 5px;
 `;
 
-const CheckButton = styled.button`
+const CheckButton = styled.div`
   //width: 50px;
   height: 40px;
   //width: 40px;

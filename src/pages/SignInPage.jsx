@@ -88,17 +88,20 @@ export default function SigninPage({location}){
 }
 
 const TextBox = styled.div`
+  width: 30vw;
+  margin-top: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
 
-    width: 30vw;
-    margin-top: 60px;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    font-size: 4vw;
-`
+  @media screen and (max-width: 700px) {
+    width: 100%;
+    text-align: center;
+  }
+`;
 
 const FormBox = styled.div`
   width: 600px;
@@ -106,6 +109,10 @@ const FormBox = styled.div`
   //background-color: ${({ theme }) => theme.colors.primary};
   margin-left: auto;
   margin-right: auto;
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 const InputBox = styled.div`
@@ -114,12 +121,19 @@ const InputBox = styled.div`
   margin-left: auto;
   margin-right: auto;
   margin-top: ${({ theme }) => theme.margins.marginTop};
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 const ButtonBox = styled.div`
-  
   margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
   aspect-ratio: 10 / 1;
+
+  @media screen and (max-width: 600px) {
+    aspect-ratio: 10 / 1.5;
+  }
 `;
