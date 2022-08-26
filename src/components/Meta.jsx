@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 
-export default function Meta() {
+export default function Meta({newsTitle, newsImage}) {
       
     /* 트위터, 페북이 읽을 수 있게 메타데이터 추가, 안되면 next js 사용할것 */
     return (

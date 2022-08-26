@@ -15,7 +15,13 @@ import Message from "./components/Message";
 import Router from "./router/Router";
 import { ThemeProvider } from "styled-components";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false
+    }
+  }
+});
 
 function App() {
   return (

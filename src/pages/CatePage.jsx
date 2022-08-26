@@ -99,6 +99,6 @@ const CardContainer = styled.div`
 
   border-bottom: 1px solid #525252;
 
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 40px;
+  padding-bottom: 40px;
 `;

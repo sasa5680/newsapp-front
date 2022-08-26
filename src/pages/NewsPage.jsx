@@ -1,7 +1,7 @@
 
 import React, { Component, useState } from "react";
 import { useQuery } from "react-query";
-
+import { useHistory } from "react-router-dom";
 import { FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon } from "react-share";
 import parse from "html-react-parser";
 import styled from "styled-components";
@@ -11,22 +11,19 @@ import CardSmall from "../components/newsCard/CardSmall";
 import "./EditorParseStyle.css";
 import Meta from "../components/Meta";
 import { StyleSubTitle } from "../styles/Common";
-import { testNews, testSimpleNews } from "../const";
 import { readNews } from "../service/NewsApi";
+import ContentLink from "../components/ContentLink";
 
 export default function NewsPage({ match }) {
   
+  const history = useHistory();
+
   //fetch
   const { isLoading, data: newsData } = useQuery(
     ["News", match.params.id],
     () => readNews(match.params.id)
   );
   
-  //샘플뉴스
-  //const newsData = testNews
-  const newsSimple = testSimpleNews;
-  /* 아이템 fetch */
-
   return (
     <>
       <Meta />
@@ -84,10 +81,8 @@ export const NewsForm = ({width, newsData}) => {
           </FacebookShareButton>
 
           <TwitterShareButton
-            url={
-              "https://zapier.com/blog/best-news-apps/#.Ys5LqyrLuaI.twitter "
-            }
-            title={"some content\n"}
+            url={"https://zapier.com/blog/best-news-apps/#.Ys5LqyrLuaI.twitter"}
+            title={newsData.newsTitle + "\n"}
             className="Demo__some-network__share-button"
           >
             <TwitterIcon size={40} round />
@@ -109,12 +104,14 @@ export const NewsForm = ({width, newsData}) => {
       </div>
 
       {/* 작성자 정보 박스 */}
-      <WriterBox>
-        <WriterName>
-          Written by {newsData?.user?.userName || "Anonymous"}
-        </WriterName>
-        <WriterProfile src={newsData?.user?.userProfile}></WriterProfile>
-      </WriterBox>
+      <ContentLink to={`/user/${newsData?.user?.userName}`}>
+        <WriterBox>
+          <WriterName>
+            Written by {newsData?.user?.userName || "Anonymous"}
+          </WriterName>
+          <WriterProfile src={newsData?.user?.userProfile}></WriterProfile>
+        </WriterBox>
+      </ContentLink>
 
       <Line />
     </ContentBox>

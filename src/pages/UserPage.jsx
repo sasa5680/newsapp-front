@@ -65,21 +65,23 @@ export default function UserPage({match}){
               {user?.data.userName}
               {/* 유저 업데이트 하는 버튼 */}
               {accountState.userName === match.params.userName && (
-                <UpdateButtonBox>
-                  <Button
-                    fontSize="27px"
-                    onClick={() => openModal({ title: "Update" })}
-                  >
-                    수정
-                  </Button>
+                <div>
+                  <UpdateButtonBox>
+                    <Button
+                      fontSize="27px"
+                      onClick={() => openModal({ title: "Update" })}
+                    >
+                      수정
+                    </Button>
 
-                  <Button
-                    fontSize="27px"
-                    onClick={() => openModal({ title: "Update" })}
-                  >
-                    탈퇴
-                  </Button>
-                </UpdateButtonBox>
+                    <Button
+                      fontSize="27px"
+                      onClick={() => openModal({ title: "Update" })}
+                    >
+                      탈퇴
+                    </Button>
+                  </UpdateButtonBox>
+                </div>
               )}
             </UserNameBox>
 
@@ -172,6 +174,7 @@ const UserNameBox = styled.div`
   
   @media screen and (max-width: 700px) {
     margin-top : 10px;
+    display: block;
   }
 `;
 const IntroBox = styled.div`
@@ -202,6 +205,6 @@ const CardContainer = styled.div`
 
   border-bottom: 1px solid #525252;
 
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 40px;
+  padding-bottom: 40px;
 `;

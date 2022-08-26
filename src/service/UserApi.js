@@ -57,5 +57,7 @@ export async function updateUser(username, form) {
 //UUID 유효 확인
 export async function userConfirmUUID(uuid){
   const URL = USER_API_URL + `/confirm/${uuid}`
-  return await axios.get(URL);
+
+  const res =  await axios.get(URL);
+  return res;
 }

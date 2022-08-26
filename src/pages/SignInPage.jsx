@@ -32,6 +32,8 @@ export default function SigninPage({location}){
       let content = "에러가 발생했습니다!"
       if (error.request.status === 403) content = "일치하는 유저 정보가 없습니다!";
 
+      console.log(error);
+
       openFail({
         title: "Login Error",
         content: content,

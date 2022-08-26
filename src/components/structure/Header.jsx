@@ -15,9 +15,7 @@ export default function Header() {
   const onLogout = () => accountDispatch({ type: "LOGOUT" });
 
   let point = useMediaQuery({ query: "(max-width: 900px)"});
-
-  console.log(point)
-  
+    
   return (
     <HeaderBox>
       {/* 로고 */}
