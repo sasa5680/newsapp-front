@@ -116,8 +116,6 @@ const LogoBox = styled.div`
   margin-left: 30px;
   height: 100%;
   width: 200px;
-
-
 `;
 
 const LogoImageBox = styled.div`

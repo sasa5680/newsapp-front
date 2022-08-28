@@ -161,7 +161,7 @@ export default function SignupPage() {
                       userEmailCheck(watch("userEmail"));
                     }}
                   >
-                    {watch("emailCheck") ? "V" : "N"}
+                    {!emailCheckLoading && (watch("emailCheck") ? "Y" : "N")}
                     {emailCheckLoading && <ClipLoader size={30} />}
                   </CheckButton>
                 </InputWrapper>
@@ -211,7 +211,7 @@ export default function SignupPage() {
                       userNameCheck(watch("userName"));
                     }}
                   >
-                    {watch("nameCheck") ? "V" : "N"}
+                    {!nameCheckLoading && (watch("nameCheck") ? "Y" : "N")}
                     {nameCheckLoading && <ClipLoader size={30} />}
                   </CheckButton>
                 </InputWrapper>
@@ -323,7 +323,9 @@ export default function SignupPage() {
 
             {/* Submit Button */}
             <ButtonBox>
-              <Button type="submit" onClick={handleSubmit(onSubmit)}>Submit</Button>
+              <Button type="submit" onClick={handleSubmit(onSubmit)}>
+                Submit
+              </Button>
             </ButtonBox>
           </form>
         </FormBox>

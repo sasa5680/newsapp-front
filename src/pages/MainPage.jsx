@@ -34,7 +34,7 @@ export default function MainPage() {
       <CateTitle>Today's Topic</CateTitle>
       <CardBig
         newsData={
-          newsData?.data.filter((news) => news.newsMain === NEWS_MAIN.MAIN)[0]
+          newsData?.data?.filter((news) => news.newsMain === NEWS_MAIN.MAIN)[0]
         }
       />
       {/* <TodayNewsSub>

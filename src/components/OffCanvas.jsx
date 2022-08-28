@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import { useAccountState, useAccountDispatch } from "../context/AccountContext";
 import styled, { css } from "styled-components";
+import BurgerMenu from "./elements/BurgerMenu";
 
 export default function OffCanvas({ children }) {
   
@@ -11,7 +12,6 @@ export default function OffCanvas({ children }) {
 
   const [state, setState] = useState(true);
   const toggle = () => {
-    console.log("ddd")
     setState(!state);
   };
 
@@ -44,10 +44,14 @@ export default function OffCanvas({ children }) {
 
   return (
     <>
-      <Show onClick={toggle} />
+      <Show onClick={toggle}>
+        <BurgerMenu />
+      </Show>
       <Body active={state}>
         <div>
-          <Close onClick={toggle} />
+          <Close onClick={toggle}>
+            <BurgerMenu />
+          </Close>
         </div>
         {content}
         <Line />
@@ -64,18 +68,19 @@ export default function OffCanvas({ children }) {
 
 const Show = styled.div`
   
-  width: 40px;
-  height: 40px;
-  background-color: red;
+  width: 50px;
+  height: 50px;
 `;
 
 const Close = styled.div`
   width: 50px;
   height: 50px;
-  background-color: blue;
   margin-right: 20px;
   margin-top: 15px;
   margin-left: 15px;
+
+  text-align: center;
+  font-size: 40px;
 `;
 
 const Body = styled.div`
