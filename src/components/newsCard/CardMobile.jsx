@@ -50,6 +50,8 @@ const InfoBox = styled.div`
 const TitleBox = styled.div`
   //margin-top: 2vw;
   font-size: 30px;
+  letter-spacing : -2px;
+  word-spacing : -2px
 `;
 
 const SubTitleBox = styled.div`
