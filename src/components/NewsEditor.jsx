@@ -13,22 +13,26 @@ import ModalPreview from "./modal/ModalPreview";
 import ModalPreviewBig from "./modal/ModalPreviewBig";
 import ModalTask from "./modal/ModalTask";
 import PageExitAlert from "./PageExitAlert";
+import { NEWS_CATE } from "../const";
 
 //글자수 제한
   const titleMax = 40;
   const subTitleMax = 40;
 
   //카테고리 옵션들
-  const options = [
+  const option = [
     { value: "world", label: "world" },
     { value: "science", label: "science" },
     { value: "economy", label: "economy" },
   ];
+  
+  const options = Object.keys(NEWS_CATE).map((key)=> {
+    return {value: key, label: key};
+  })
 
+  console.log(options, option);
 
 export default function NewsEditor({initData, onSubmit, exitState = false}){
-
-  console.log(initData)
 
   const {openSuccess, openFail, ModalView } = ModalTask();
 
@@ -41,6 +45,7 @@ export default function NewsEditor({initData, onSubmit, exitState = false}){
     newsCate: initData?.newsCate || options[0].value,
     newsContent: initData?.newsContent || "",
   });
+
 
   const submitForm = async () => {
     const formData = new FormData();
@@ -63,8 +68,8 @@ export default function NewsEditor({initData, onSubmit, exitState = false}){
         <TitleBox>뉴스 PROFILE</TitleBox>
         <Crop
           initSrc={initData?.newsProfile}
-          onCrop={(data) =>
-            setNewsState((state) => ({ ...state, newsProfile: data }))
+          onCrop={(data) =>{setNewsState((state) => ({ ...state, newsProfile: data }));}
+            
           }
         />
       </FormItemBox>
@@ -77,7 +82,6 @@ export default function NewsEditor({initData, onSubmit, exitState = false}){
             defaultValue={
               options.filter((option) => option.label === "world")[0]
             }
-            onCh
             options={options}
             onChange={(option) => {
               setNewsState((state) => ({ ...state, newsCate: option.value }));
@@ -179,6 +183,7 @@ export default function NewsEditor({initData, onSubmit, exitState = false}){
         newsData={newsState}
       ></ModalPreviewBig>
       <ModalView />
+      <div style={{ marginBottom: "30px" }}></div>
     </>
   );
 }

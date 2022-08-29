@@ -6,6 +6,9 @@ import styled from "styled-components";
 
 import CardMobile from "./CardMobile";
 
+import { StyleTitle, StyleCate } from "../../styles/Common";
+
+
 export default function CardSmall({newsData}) {
 
     let isMobile = useMediaQuery({ query: "(max-width: 700px)" });
@@ -33,53 +36,31 @@ export default function CardSmall({newsData}) {
 
 const CardBox = styled.div`
   position: relative;
-  width: ${(props) => props.width};
+  width: ${(props) => props.width || "100%"};
 `;
 
 const ImageBox = styled.div`
-    width: 100%;
-    aspect-ratio: 16 / 9;
+  width: 100%;
+  aspect-ratio: 16 / 9;
 `
 
 const Image = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  //object-fit: cover;
 `;
 
 const InfoBox = styled.div`
   width: 100%;
   height: 10vw;
-  background-color: #21373c;
 `;
 const CateBox = styled.div`
-
-`
+  margin-top: 5px;
+  ${StyleCate}
+`;
 
 const TitleBox = styled.div`
-    font-size: 2vw;
-`
+  ${StyleTitle}
 
-const WriterBox = styled.div`
-  position: absolute;
-  bottom: 0;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-
-  margin-top: auto;
-  width: 100%;
-  height: 50px;
-`;
-
-const WriterProfile = styled.img`
-  border-radius: 50%;
-  aspect-ratio: 1 /1;
-  height: 75%;
-
-`;
-
-const WriterName = styled.div`
-  margin-left: 2vw;
-  font-size: 1.5vw;
+  font-size: 2vw;
 `;

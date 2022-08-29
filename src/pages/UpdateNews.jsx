@@ -33,7 +33,7 @@ export default function UpdateNews({match}) {
       openFail({});
     },
     onSuccess: (data, variables, context) => {
-      openSuccess({ content: "업로드 완료!", closable: false, link: "/" });
+      openSuccess({ content: "업로드 완료!", closable: false, link: "/admin" });
       console.log("success", data, variables, context);
     },
     onSettled: () => {

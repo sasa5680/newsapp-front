@@ -74,6 +74,8 @@ export default function Crop({onCrop, initSrc}){
 
   }
 
+  
+
   const ShowData = ({name, unit, data}) => {
     return (
       <div class="input-group input-group-sm">
@@ -116,14 +118,14 @@ export default function Crop({onCrop, initSrc}){
     );
   }
 
-
+  
   return (
     <div>
       <CropperBox>
         <StyledCropper
           zoomTo={0.5}
           initialAspectRatio={4 / 3}
-          aspectRatio={4 / 3}
+          aspectRatio={16 / 9}
           preview=".img-preview"
           src={image}
           viewMode={1}
@@ -276,7 +278,6 @@ export default function Crop({onCrop, initSrc}){
 const CropperBox = styled.div`
   display: flex;
   width: 100%;
-  background-color: beige;
 `;
 
 const StyledCropper = styled(Cropper)`

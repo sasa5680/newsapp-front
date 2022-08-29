@@ -30,8 +30,8 @@ const CardBox = styled.div`
 `;
 
 const ImageBox = styled.div`
-    aspect-ratio: 16 / 9;
-    height: 100%;
+  aspect-ratio: 16 / 9;
+  height: 100%;
 `
 
 const Image = styled.img`
@@ -48,10 +48,8 @@ const InfoBox = styled.div`
 `;
 
 const TitleBox = styled.div`
-  //margin-top: 2vw;
+  ${StyleTitle}
   font-size: 30px;
-  letter-spacing : -2px;
-  word-spacing : -2px
 `;
 
 const SubTitleBox = styled.div`

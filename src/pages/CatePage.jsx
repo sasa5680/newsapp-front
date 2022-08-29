@@ -74,12 +74,20 @@ export default function CatePage({ match }) {
 }
 
 const CateTitle = styled.div`
-  font-size: 30px;
-  margin-top: 20px;
-  margin-bottom: 10px;
   text-transform: uppercase;
-
-  color: ${({ theme }) => theme.colors.secondary};
+  font-size: 20px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  //width: fit-content;
+  width: 200px;
+  text-align: center;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: white;
 `;
 
 const NewsList = styled.div`

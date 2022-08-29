@@ -9,14 +9,12 @@ export default function ModalPreview({
   onClose,
   maskClosable,
   visible,
-  newsData,
+  newsData = testNews,
   isMobile = false,
 }) {
-  
-    useEffect(() => {
-        console.log("ddd")
-            return () => {console.log("des")};
-    }, []);
+
+  console.log(newsData)
+;  
 
   return (
     <Modal

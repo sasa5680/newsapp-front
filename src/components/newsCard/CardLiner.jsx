@@ -24,7 +24,7 @@ export default function CardLiner({newsData}) {
               <TitleBox>{newsData?.newsTitle}</TitleBox>
               <SubTitleBox>{newsData?.newsSubTitle}</SubTitleBox>
             </TextBox>
-            <WriterBox>{newsData?.userName}</WriterBox>
+            <WriterBox>by {newsData?.userName}</WriterBox>
           </ContentBox>
         </CardBox>
       </ContentLink>
@@ -38,7 +38,7 @@ const CardBox = styled.div`
 `;
 const ImageBox = styled.div`
     height: 100%;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 9;
 `
 const StyledImage = styled.img`
     width: 100%;
@@ -67,6 +67,7 @@ const CateBox = styled.div`
 
 const TitleBox = styled.div`
   ${StyleTitle}
+  font-size: 2.2vw;
 `;
 
 const SubTitleBox = styled.div`

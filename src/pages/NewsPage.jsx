@@ -43,10 +43,14 @@ export default function NewsPage({ match }) {
       {/* 연관 뉴스들 */}
       <h1 onClick={console.log(newsData)}>More Stories</h1>
       <RelatedNewsBox>
-        <CardSmall newsData={newsData?.data.relatedNews[0]} width={"25%"} />
-        <CardSmall newsData={newsData?.data.relatedNews[1]} width={"25%"} />
-        <CardSmall newsData={newsData?.data.relatedNews[2]} width={"25%"} />
-        <CardSmall newsData={newsData?.data.relatedNews[3]} width={"25%"} />
+        {newsData?.data.relatedNews.map((newsData) => {
+          return (
+            <RelatedNewsContainer>
+              <CardSmall newsData={newsData} />
+            </RelatedNewsContainer>
+          );
+        })}
+
       </RelatedNewsBox>
     </>
   );
@@ -216,11 +220,16 @@ const WriterName = styled.div`
   margin-right: 10px;
 `;
 
+const RelatedNewsContainer = styled.div`
+  width: 25%;
+`
+
 const RelatedNewsBox = styled.div`
   grid-gap: 1.5vw;
   display: flex;
   margin-top: 30px;
   width: 100%;
+  margin-bottom: 30px;
 
   @media screen and (max-width: 700px) {
     grid-gap: 0px;

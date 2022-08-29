@@ -59,6 +59,7 @@ const InfoBox = styled.div`
 const TitleBox = styled.div`
   margin-top: 2vw;
   ${StyleTitle}
+  font-size: 3vw;
 `;
 
 const SubTitleBox = styled.div`

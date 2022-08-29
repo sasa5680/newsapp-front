@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useAccountState, useAccountDispatch } from "../context/AccountContext";
 import styled, { css } from "styled-components";
 import BurgerMenu from "./elements/BurgerMenu";
+import { NEWS_CATE } from "../const";
 
 export default function OffCanvas({ children }) {
   
@@ -15,13 +16,21 @@ export default function OffCanvas({ children }) {
     setState(!state);
   };
 
+  const CateLink  = Object.keys(NEWS_CATE).map((key, index) => {
+    return (
+      <MenuLink onClick={toggle} to={`/cate/${key.toLowerCase()}`}>
+        {key}
+      </MenuLink>
+    );
+  });
+        
   let content = <></>
   //로그인 되어 있으면 보여줄 요소
   if(accountState.isLogin) {
     content = (
       <>
-        <MenuLink to={`/user/${accountState.username}`}>
-          {accountState.username}
+        <MenuLink to={`/user/${accountState.userName}`}>
+          {accountState.userName}
         </MenuLink>
         <MenuLink onClick={()=>{accountDispatch({ type: "LOGOUT" });}}>LOGOUT</MenuLink>
       </>
@@ -30,13 +39,12 @@ export default function OffCanvas({ children }) {
     //로그인 안 되어 있으면 보여줄 요소
     content = (
       <>
-        <MenuLink to ="/signin" onClick={toggle}>
+        <MenuLink to="/signin" onClick={toggle}>
           LOGIN
         </MenuLink>
         <MenuLink to={`/signup`} onClick={toggle}>
           SIGN-UP
         </MenuLink>
-
       </>
     );
   }
@@ -61,6 +69,7 @@ export default function OffCanvas({ children }) {
         <MenuLink to={`/signup`} onClick={toggle}>
           ABOUT
         </MenuLink>
+        {CateLink}
       </Body>
     </>
   );

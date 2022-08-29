@@ -5,11 +5,13 @@ export const StlyeCard = css`
 `
 
 export const StyleTitle = css`
-  font-size: 2.8vw;
-  font-weight: 700;
+  font-size: 30px;
+  letter-spacing : -2px;
+  word-spacing : -2px;
   &:hover {
-    color: blue;
+    text-decoration: underline
   }
+  //line-height: 120%;
 `;
 
 export const StyleSubTitle = css`

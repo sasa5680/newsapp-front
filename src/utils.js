@@ -23,6 +23,13 @@ export function dateConverter(ISOTimeFormat) {
   }
 }
 
+//**blob to dataURL**
+export async function blobToDataURL(blob, callback) {
+    var a = new FileReader();
+    a.onload = function(e) {callback(e.target.result);}
+    return a.readAsDataURL(blob);
+}
+
 export function dateConverterToTime(ISOTimeFormat) {
   const date = new Date(ISOTimeFormat);
 
