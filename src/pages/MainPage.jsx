@@ -15,6 +15,10 @@ export default function MainPage() {
   //fetch
   const { isError, isLoading, data: newsData } = useQuery(["Main"], readMainNews);
 
+  if(isLoading) {
+    return <></>
+  }
+
   if(isError) {
     return <ErrorPage/>
   }
