@@ -15,8 +15,6 @@ import { readNews } from "../service/NewsApi";
 import ContentLink from "../components/ContentLink";
 
 export default function NewsPage({ match }) {
-  
-  const history = useHistory();
 
   //fetch
   const { isLoading, data: newsData } = useQuery(
@@ -41,7 +39,7 @@ export default function NewsPage({ match }) {
       {!isLoading && <NewsForm newsData={newsData?.data}></NewsForm>}
 
       {/* 연관 뉴스들 */}
-      <h1 onClick={console.log(newsData)}>More Stories</h1>
+      <h1>More Stories</h1>
       <RelatedNewsBox>
         {newsData?.data.relatedNews.map((newsData) => {
           return (
@@ -99,7 +97,13 @@ export const NewsForm = ({width, newsData}) => {
 
       {/* 뉴스 프로필 이미지 */}
       <ImageBox>
-        <Image src={newsData?.newsProfile} />
+        <Image
+          src={
+            newsData?.newsProfile instanceof Blob
+              ? newsData?.newsProfileURL
+              : newsData?.newsProfile
+          }
+        />
       </ImageBox>
 
       {/* 뉴스 메인 */}

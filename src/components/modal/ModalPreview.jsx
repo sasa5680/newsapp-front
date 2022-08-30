@@ -13,9 +13,6 @@ export default function ModalPreview({
   isMobile = false,
 }) {
 
-  console.log(newsData)
-;  
-
   return (
     <Modal
       width={"60vw"}

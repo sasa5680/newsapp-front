@@ -14,6 +14,7 @@ import ModalPreviewBig from "./modal/ModalPreviewBig";
 import ModalTask from "./modal/ModalTask";
 import PageExitAlert from "./PageExitAlert";
 import { NEWS_CATE } from "../const";
+import { blobToDataURL } from "../utils";
 
 //글자수 제한
   const titleMax = 40;
@@ -46,13 +47,17 @@ export default function NewsEditor({initData, onSubmit, exitState = false}){
     newsContent: initData?.newsContent || "",
   });
 
-
   const submitForm = async () => {
     const formData = new FormData();
 
-    Object.keys(newsState).forEach((key) =>
+    let newsProfile = await (await fetch(newsState.newsProfile)).blob(); 
+    setNewsState((state) => ({ ...state, newsProfile: newsProfile }));
+
+    console.log(newsState.newsProfile);
+
+    Object.keys(newsState).forEach((key) => {
       formData.append(key, newsState[key])
-    );
+    });
 
     onSubmit(formData);
   }
@@ -68,9 +73,10 @@ export default function NewsEditor({initData, onSubmit, exitState = false}){
         <TitleBox>뉴스 PROFILE</TitleBox>
         <Crop
           initSrc={initData?.newsProfile}
-          onCrop={(data) =>{setNewsState((state) => ({ ...state, newsProfile: data }));}
-            
-          }
+          onCrop={(data) => {
+            //setNewsState((state) => ({ ...state, newsProfile: data }));
+            blobToDataURL(data, (res) => {setNewsState((state) => ({ ...state, newsProfile: res }));})
+          }}
         />
       </FormItemBox>
 
@@ -196,10 +202,6 @@ const TitleBox = styled.div`
 const FormItemBox = styled.div`
   width: 100%;
   margin-top: 30px;
-`
-
-const StyledTextArea = styled.textarea`
-  font-size: 20px;
 `
 
 const WordCounter = styled.div`

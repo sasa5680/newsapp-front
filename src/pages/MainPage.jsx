@@ -9,10 +9,15 @@ import CardLiner from "../components/newsCard/CardLiner";
 import CardSmallTest from "../components/newsCard/CardSmallTest";
 import { readMainNews } from "../service/NewsApi";
 import { NEWS_CATE, NEWS_MAIN } from "../const";
+import ErrorPage from "./ErrorPage";
 
 export default function MainPage() {
   //fetch
-  const { isLoading, data: newsData } = useQuery(["Main"], readMainNews);
+  const { isError, isLoading, data: newsData } = useQuery(["Main"], readMainNews);
+
+  if(isError) {
+    return <ErrorPage/>
+  }
 
   return (
     <>

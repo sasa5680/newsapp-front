@@ -206,7 +206,7 @@ export default function AdminPage({}) {
           openModal({
             content: "정말 삭제하시겠습니까?",
             onClick: () => {
-              newsDelteMutation.mutate(news);
+              newsDelteMutation.mutate(news.newsId);
             },
           });
         },
