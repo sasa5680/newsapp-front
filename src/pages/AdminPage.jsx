@@ -2,6 +2,15 @@ import React, { useRef, useState, useEffect } from "react";
 import { Link, useHistory} from "react-router-dom";
 import { useQuery, useMutation } from "react-query";
 import Select from "react-select";
+import {
+  Menu,
+  Item,
+  Separator,
+  Submenu,
+  useContextMenu,
+} from "react-contexify";
+import "react-contexify/dist/ReactContexify.css";
+
 
 import styled from "styled-components";
 import ContextMenu from "../components/ContextMenu";
@@ -31,11 +40,22 @@ const optionsMain = [
 
 
 export default function AdminPage({}) {
+  const MENU_ID = "menu-id";
 
   const history = useHistory();
 
   const { openModal, startLoading, openSuccess, openFail, ConfirmModal } =
     ModalConfirm();
+
+    const { show } = useContextMenu({
+      id: MENU_ID,
+    });
+  
+  function displayMenu(e, news) {
+    // put whatever custom logic you need
+    // you can even decide to not display the Menu
+    show(e, { props: { news: news } });
+  } 
 
   //뉴스 리스트
 
@@ -129,115 +149,98 @@ export default function AdminPage({}) {
     },
   });
 
-  //뉴스 요소 렌더링
-  const list = newsItems?.data?.content?.map((news, index) => {
-    const menu = [];
-    
-    //컨텍스트 메뉴 설정
-    //뉴스가 승인되지 않았으면
-    if (!news.newsApproved){
-      menu.push({
-        name: "뉴스 승인",
-        onClick: () => {
-          openModal({
-            content: "뉴스를 승인하시겠습니까?",
-            onClick:() => {
-              newsApproveMutation.mutate({id : news.newsId, approved: true});
-            }
-          })
-        }
-      })
+  function handleUpdateClick({ event, props, triggerEvent, data }){
+    console.log(props)
+    history.push(`/update/${props.news.newsId}`);
+  }
 
-    } else {
-      menu.push({
-        name: "승인 취소",
-        onClick: () => {
-          openModal({
-            content: "승인을 취소합니다.",
-            onClick: () => {
-              newsApproveMutation.mutate({ id: news.newsId, approved: false });
-            },
-          });
-        },
-      });
-    }
-
-    //일반 뉴스면 카테고리 메인, 메인 여부 추가한다.
-    if (news.newsMain !== NEWS_MAIN.MAIN && news.newsApproved) {
-      //메인으로 설정
-      menu.push({
-        name: "Set Main",
-        onClick: () => {
-          openModal({
-            content: "메인 뉴스로 설정합니다.",
-            onClick: () => {
-              newsMainMutation.mutate({
-                id: news.newsId,
-                main: NEWS_MAIN.MAIN,
-              });
-            },
-          });
-        },
-      });
-    }
-
-      //카테고리 메인으로 설정
-    if (news.newsMain !== NEWS_MAIN.CATEMAIN && news.newsApproved) {
-      menu.push({
-        name: "Set Cate Main",
-        onClick: () => {
-          openModal({
-            content: "카테고리 뉴스로 설정합니다.",
-            onClick: () => {
-              newsMainMutation.mutate({
-                id: news.newsId,
-                main: NEWS_MAIN.CATEMAIN,
-              });
-            },
-          });
-        },
-      });
-    }
-
-      //삭제
-      menu.push({
-        name: "Delete",
-        onClick: () => {
-          openModal({
-            content: "정말 삭제하시겠습니까?",
-            onClick: () => {
-              newsDelteMutation.mutate(news.newsId);
-            },
-          });
-        },
-      });
-
-    // 업데이트 페이지로 이동
-    menu.push({
-      name: "Update",
+  function handleDeleteClick({ event, props, triggerEvent, data }){
+    openModal({
+      content: "정말 삭제하시겠습니까?",
       onClick: () => {
-        history.push(`/update/${news.newsId}`);
+        newsDelteMutation.mutate(props.news.newsId);
+      },
+    })
+  }
+
+  function handleApprove({ event, props, triggerEvent, data }){
+    openModal({
+      content: "뉴스를 승인하시겠습니까?",
+      onClick: () => {
+        newsApproveMutation.mutate({ id: props.news.newsId, approved: true });
       },
     });
+  }
 
+  function handleReject({ event, props, triggerEvent, data }) {
+    openModal({
+      content: "승인을 취소합니다.",
+      onClick: () => {
+        newsApproveMutation.mutate({ id: props.news.newsId, approved: false });
+      },
+    });
+  }
+
+  function handleSetMain({ event, props, triggerEvent, data }){
+   openModal({
+     content: "메인 뉴스로 설정합니다.",
+     onClick: () => {
+       newsMainMutation.mutate({
+         id: props.news.newsId,
+         main: NEWS_MAIN.MAIN,
+       });
+     },
+   });
+  }
+
+  function handleSetCateMain({ event, props, triggerEvent, data }) {
+    openModal({
+      content: "카테고리 뉴스로 설정합니다.",
+      onClick: () => {
+        newsMainMutation.mutate({
+          id: props.news.newsId,
+          main: NEWS_MAIN.CATEMAIN,
+        });
+      },
+    });
+  }
+
+  function isApproveDisabled({ props, data, triggerEvent }) {
+    return props.news.newsApproved;
+  }
+
+  function isRejectDisabled({ props, data, triggerEvent }) {
+    return !props.news.newsApproved;
+  }
+
+  function isCateMainDisabled({ props, data, triggerEvent }) {
+    console.log(props.news.newsMain === NEWS_MAIN.CATEMAIN);
+    return props.news.newsMain === NEWS_MAIN.CATEMAIN;
+  }  
+  
+  function isMainDisabled({ props, data, triggerEvent }) {
+    return props.news.newsMain === NEWS_MAIN.MAIN;
+  }  
+
+  //뉴스 요소 렌더링
+  const list = newsItems?.data?.content?.map((news, index) => {
+    
     return (
-      <Item>
+      <NewsItem onContextMenu={(e)=>displayMenu(e, news)}>
         <ItemInfo>{news.newsId}</ItemInfo>
         <ItemInfo>
-          <ContextMenu menu={menu}>
-            <MenuLink to={`/news/${news.newsId}`}>
-              {news.newsTitle}
-              <SubInfoBox>
-                &#40;{news.newsMain}&#41;
-                {news.newsApproved ? `approved` : "yet"}
-              </SubInfoBox>
-            </MenuLink>
-          </ContextMenu>
+          <MenuLink to={`/news/${news.newsId}`}>
+            {news.newsTitle}
+            <SubInfoBox>
+              &#40;{news.newsMain}&#41;
+              {news.newsApproved ? `approved` : "yet"}
+            </SubInfoBox>
+          </MenuLink>
         </ItemInfo>
 
         <ItemInfo>{news.userName}</ItemInfo>
         <ItemInfo>{news.createdAt}</ItemInfo>
-      </Item>
+      </NewsItem>
     );
   });
 
@@ -255,22 +258,30 @@ export default function AdminPage({}) {
                 }}
               />
             </SearchBarBox>
-            
+
             {/* 카테고리 옵션 */}
             <CateOptionBox>
               <CateOption onChange={onCate} />
             </CateOptionBox>
-            
+
             {/* 승인됨 여부 */}
             <CateOptionBox>
-              <Select options={optionApproved} placeholder={"approved"} onChange={onApproved}></Select>
+              <Select
+                options={optionApproved}
+                placeholder={"approved"}
+                onChange={onApproved}
+              ></Select>
             </CateOptionBox>
 
             {/* 메인 여부 */}
             <CateOptionBox>
-              <Select options={optionsMain} placeholder={"main?"} onChange={onMain}></Select>
+              <Select
+                options={optionsMain}
+                placeholder={"main?"}
+                onChange={onMain}
+              ></Select>
             </CateOptionBox>
-            
+
             {/* 리셋 버튼 */}
             <ResetButtonBox>
               <Button onClick={reset}>Reset</Button>
@@ -292,6 +303,24 @@ export default function AdminPage({}) {
         </PageBox>
       </Body>
       <ConfirmModal />
+
+      {/* 콘텍스트 메뉴 */}
+      <Menu id={MENU_ID}>
+        <Item onClick={handleUpdateClick}>Update</Item>
+        <Item onClick={handleDeleteClick}>Delete</Item>
+        <Separator />
+        <Item disabled={isApproveDisabled} onClick={handleApprove}>
+          Approve
+        </Item>
+        <Item disabled={isRejectDisabled} onClick={handleReject}>
+          Reject
+        </Item>
+        <Separator />
+        <Submenu label="Set as...">
+          <Item disabled={isCateMainDisabled} onClick={handleSetCateMain}>CateMain</Item>
+          <Item disabled={isMainDisabled} onClick={handleSetMain}>Main</Item>
+        </Submenu>
+      </Menu>
     </>
   );
 }
@@ -365,7 +394,7 @@ const ItemList = styled.ul`
   padding-top: 10px;
 `;
 
-const Item = styled.li`
+const NewsItem = styled.li`
   box-sizing: border-box;
   display: grid;
   grid-template-columns: 0.3fr 4fr 0.5fr 0.5fr;

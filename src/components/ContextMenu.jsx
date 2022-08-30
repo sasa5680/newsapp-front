@@ -32,12 +32,10 @@ export default function ContextMenu({ menu = [], children }) {
   //휠 이벤트 블락
   useEffect(() => {
     if (state.show) {
-      console.log("show");
       document.addEventListener("wheel", blockWheel, { passive: false }); // modern desktop
       window.addEventListener("scroll", blockScroll);
       //window.addEventListener("keypress", handleWheelEvent);
     } else {
-      console.log("remove")
       //window.removeEventListener("keypress", handleWheelEvent);
       document.removeEventListener("wheel", blockWheel, { passive: false });
       window.removeEventListener("scroll", blockScroll);
@@ -53,12 +51,12 @@ export default function ContextMenu({ menu = [], children }) {
 
   //마우스 우클릭 이벤트 발생
   const handleContextMenu = (e) => {
-    console.log(e);
+    console.log(e.screenX);
     let posX;
     let posY;
 
-    posX = `${e.PageX + "px"}`;
-    posY = `${e.PageY + "px"}`;
+    posX = `${e.screenX + "px"}`;
+    posY = `${e.screenY + "px"}`;
 
     setState((state) => ({ posX: posX, posY: posY, show: true }));
 
@@ -112,13 +110,14 @@ const Box = styled.div`
 `
 
 const MenuBox = styled.div`
-  top: ${(props) => props.xPos};
-  left: ${(props) => props.yPos};
+  top: ${(props) => props.yPos};
+  //top: 300px;
+  left: ${(props) => props.xPos};
   position: fixed;
 
   width: 200px;
   height: 300px;
-  z-index: 100;
+  z-index: 300;
   background-color: #000000;
   border: 2px solid ${({ theme }) => theme.colors.primary};
 `;

@@ -17,6 +17,7 @@ import UserPage from "../pages/UserPage";
 import {
   useAccountState,
 } from "../context/AccountContext"
+import NotFoundPage from "../pages/NotFoundPage";
 
 
 export default function Router() {
@@ -26,8 +27,17 @@ export default function Router() {
   return (
     <Switch>
       <Route exact path="/" component={MainPage}></Route>
-      <PrivateRoute Route exact path="/edit" component={EditNews}></PrivateRoute>
-      <PrivateRoute exact path="/update/:id" component={UpdateNews}></PrivateRoute>
+      <PrivateRoute
+        Route
+        exact
+        path="/edit"
+        component={EditNews}
+      ></PrivateRoute>
+      <PrivateRoute
+        exact
+        path="/update/:id"
+        component={UpdateNews}
+      ></PrivateRoute>
       <Route exact path="/news/:id" component={NewsPage}></Route>
       <Route exact path="/cate/:cate" component={CatePage}></Route>
       <Route exact path="/search" component={SearchPage}></Route>
@@ -36,6 +46,7 @@ export default function Router() {
       <PrivateRoute exact path="/admin" component={AdminPage}></PrivateRoute>
       <Route exact path="/user/:userName" component={UserPage}></Route>
       <Route exact path="/confirm/:uuid" component={SignUpConfirmPage}></Route>
+      <Route path="*" component={NotFoundPage} />
     </Switch>
   );
 }
