@@ -286,8 +286,13 @@ export default function AdminPage({}) {
               <Button onClick={reset}>Reset</Button>
             </ResetButtonBox>
 
-            <Button onClick={()=>{history.push("/")}}>Edit News</Button>
-
+            <EditNewsButtonBox>
+              <Button
+                onClick={() => {history.push("/edit");}}
+              >
+                Edit News
+              </Button>
+            </EditNewsButtonBox>
           </SearchBox>
         </TitleBox>
         <TitleList>
@@ -319,8 +324,12 @@ export default function AdminPage({}) {
         </Item>
         <Separator />
         <Submenu label="Set as...">
-          <Item disabled={isCateMainDisabled} onClick={handleSetCateMain}>CateMain</Item>
-          <Item disabled={isMainDisabled} onClick={handleSetMain}>Main</Item>
+          <Item disabled={isCateMainDisabled} onClick={handleSetCateMain}>
+            CateMain
+          </Item>
+          <Item disabled={isMainDisabled} onClick={handleSetMain}>
+            Main
+          </Item>
         </Submenu>
       </Menu>
     </>
@@ -363,11 +372,15 @@ const CateOptionBox = styled.div`
   font-size: 20px;
 `
 const ResetButtonBox = styled.div`
-  
   height: 100%;
   width: 100px;
   margin-left: 20px;
 `
+const EditNewsButtonBox = styled.div`
+  width: 150px;
+  height: 100%;
+  margin-left: 30px;
+`;
 
 const TitleList = styled.ul`
   margin-top: 40px;
