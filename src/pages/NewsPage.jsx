@@ -30,7 +30,7 @@ export default function NewsPage({ match }) {
     <>
       <Meta
         newsTitle={newsData?.data.newsTitle}
-        newsImage={newsData?.data.newsImage}
+        newsImage={newsData?.data.newsProfile}
       />
       {/* <a
         href="https://twitter.com/intent/tweet?text=this is a test&amp;via=sasa5680&amp;url=http://localhost:3000/news/&amp;original_referer=URL&amp;cid=article_share_twitter"
