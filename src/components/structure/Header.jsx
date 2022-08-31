@@ -59,6 +59,11 @@ export default function Header() {
             {accountState.isLogin ? (
               <>
                 <MenuItem>
+                  <MenuLink to={`/edit`}>
+                    Write
+                  </MenuLink>
+                </MenuItem>
+                <MenuItem>
                   <MenuLink to={`/user/${accountState.userName}`}>
                     {accountState.userName}
                   </MenuLink>
