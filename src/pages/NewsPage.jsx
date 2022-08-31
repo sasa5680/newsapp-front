@@ -1,7 +1,6 @@
 
-import React, { Component, useState } from "react";
+import React from "react";
 import { useQuery } from "react-query";
-import { useHistory } from "react-router-dom";
 import { FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon } from "react-share";
 import parse from "html-react-parser";
 import styled from "styled-components";
@@ -226,7 +225,10 @@ const WriterName = styled.div`
 
 const RelatedNewsContainer = styled.div`
   width: 25%;
-`
+  @media screen and (max-width: 700px) {
+    width: 100%;
+  }
+`;
 
 const RelatedNewsBox = styled.div`
   grid-gap: 1.5vw;

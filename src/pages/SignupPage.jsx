@@ -37,7 +37,6 @@ export default function SignupPage() {
       startLoading();
     },
     onError: (error, variable, context) => {
-      console.log("error", error);
       openFail()
     },
     onSuccess: (data, variables, context) => {
@@ -310,7 +309,7 @@ export default function SignupPage() {
               </InputBox>
             </ItemBox>
 
-            {/* 프로팔 사진 업로드 */}
+            {/* 프로필 사진 업로드 */}
             <ItemBox>
               <LableBox>
                 <i class="fas fa-image"></i> Profile

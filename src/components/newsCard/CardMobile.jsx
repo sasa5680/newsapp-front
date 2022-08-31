@@ -50,6 +50,13 @@ const InfoBox = styled.div`
 const TitleBox = styled.div`
   ${StyleTitle}
   font-size: 30px;
+
+  overflow: hidden;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
 const SubTitleBox = styled.div`
@@ -57,8 +64,8 @@ const SubTitleBox = styled.div`
   ${StyleSubTitle}
   font-size: 18px;
   color: ${({ theme }) => theme.colors.gray};
+  
   overflow: hidden;
-
   word-break: break-all;
   text-overflow: ellipsis;
   display: -webkit-box;

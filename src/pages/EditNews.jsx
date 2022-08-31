@@ -17,7 +17,6 @@ export default function EditNews() {
 
   const signUpMutation = useMutation(createNews, {
     onMutate: (variable) => {
-      console.log("onMutate", variable);
       startLoading();
     },
     onError: (error, variable, context) => {
@@ -26,17 +25,13 @@ export default function EditNews() {
     },
     onSuccess: (data, variables, context) => {
       openSuccess({ content: "업로드 완료!", closable: false, link: "/admin" });
-      console.log("success", data, variables, context);
     },
     onSettled: () => {
-      console.log("end");
     },
   });
 
 
   async function submitForm(data) {
-
-    console.log(data);
     openModal({content: "업로드 하시겠습니까?", onClick: ()=>{signUpMutation.mutate(data);}})
   }
 

@@ -91,7 +91,7 @@ const CateTitle = styled.div`
 `;
 
 const NewsList = styled.div`
-  width: 75%;
+  width: 80%;
   row-gap: 20px;
   margin-top: 30px;
 

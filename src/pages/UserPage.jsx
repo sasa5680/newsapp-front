@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useQuery, useMutation } from "react-query";
 
-import { testUser } from "../const";
 import styled from "styled-components";
+
+import UserUpdate from "../components/UserUpdate";
 import ScrollLoading from "../components/ScrollLoading";
 import { readUser } from "../service/UserApi";
 import { useAccountState } from "../context/AccountContext";
@@ -21,9 +22,6 @@ export default function UserPage({match}){
       page: -1,
       isLast: false,
   });
-
-  const { openModal, startLoading, openSuccess, openFail, ConfirmModal } =
-    ModalConfirm();
 
   const {
     isError,
@@ -49,6 +47,8 @@ export default function UserPage({match}){
       searchMutation.mutate({userName:userName, page:page, size:8});
   }
 
+  if(isLoading) return <></>
+
   return (
     <>
       {/* 유저 정보 박스 */}
@@ -62,26 +62,13 @@ export default function UserPage({match}){
           <TextBox>
             {/* 유저 이름 부분 */}
             <UserNameBox>
-              {user?.data.userName}
+              <UserName> {user?.data.userName}</UserName>
+
               {/* 유저 업데이트 하는 버튼 */}
               {accountState.userName === match.params.userName && (
-                <div>
-                  <UpdateButtonBox>
-                    <Button
-                      fontSize="27px"
-                      onClick={() => openModal({ title: "Update" })}
-                    >
-                      수정
-                    </Button>
-
-                    <Button
-                      fontSize="27px"
-                      onClick={() => openModal({ title: "Update" })}
-                    >
-                      탈퇴
-                    </Button>
-                  </UpdateButtonBox>
-                </div>
+                <UpdateButtonBox>
+                  <UserUpdate user={user?.data} />
+                </UpdateButtonBox>
               )}
             </UserNameBox>
 
@@ -111,11 +98,22 @@ export default function UserPage({match}){
           />
         )}
       </NewsBox>
-      <ConfirmModal />
     </>
   );
 
 }
+
+const WriterProfile = styled.img`
+  border-radius: 50%;
+  aspect-ratio: 1 /1;
+  height: 50px;
+  margin-right: 20px;
+`;
+
+
+const UpdateItem = styled.div`
+  display: flex;
+`
 
 const UserBox = styled.div`
   display: flex;
@@ -132,7 +130,12 @@ const UpdateButtonBox = styled.div`
   font-size: 20px;
   display: flex;
   grid-gap: 10px;
-`
+
+  @media screen and (max-width: 700px) {
+    align-items: center;
+    justify-content: center;
+  }
+`;
 
 const InnerBox = styled.div`
   display: flex;
@@ -166,17 +169,31 @@ const Profile = styled.img`
 const TextBox = styled.div`
   margin-left: 4vw;
   width: 50%;
-`
+
+  @media screen and (max-width: 700px) {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+`;
 const UserNameBox = styled.div`
   font-size: 40px;
   display: flex;
   align-items: center;
-  
+
   @media screen and (max-width: 700px) {
-    margin-top : 10px;
+    margin-top: 10px;
     display: block;
+    
   }
 `;
+
+const UserName = styled.div`
+  @media screen and (max-width: 700px) {
+    text-align: center;
+  }
+`;
+
 const IntroBox = styled.div`
   font-size: 25px;
 `
@@ -190,7 +207,7 @@ const NewsTitleBox = styled.div`
 `;
 
 const NewsBox = styled.div`
-  width: 75%;
+  width: 80%;
   margin-top: 10px;
 
   @media screen and (max-width: 800px) {

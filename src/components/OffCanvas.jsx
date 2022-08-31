@@ -29,10 +29,16 @@ export default function OffCanvas({ children }) {
   if(accountState.isLogin) {
     content = (
       <>
-        <MenuLink to={`/user/${accountState.userName}`}>
+        <MenuLink onClick={toggle} to={`/user/${accountState.userName}`}>
           {accountState.userName}
         </MenuLink>
-        <MenuLink onClick={()=>{accountDispatch({ type: "LOGOUT" });}}>LOGOUT</MenuLink>
+        <MenuLink
+          onClick={() => {
+            accountDispatch({ type: "LOGOUT" });
+          }}
+        >
+          LOGOUT
+        </MenuLink>
       </>
     );
   } else {

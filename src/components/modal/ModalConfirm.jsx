@@ -22,12 +22,12 @@ export default function ModalConfirm() {
     setState({ ...state, visible: false, showFooter: true });
   };
 
-  const openModal = ({title = "Notification", content = "Content", onClick = () => {}}) => {
+  const openModal = ({title = "Notification", content = "Content", onClick = () => {}}, maskClosable = true) => {
     setState({
       ...state,
       title: title,
       visible: true,
-      maskClosable: true,
+      maskClosable: maskClosable,
       closable: true,
       content: content,
       onClick: onClick,
@@ -81,6 +81,7 @@ export default function ModalConfirm() {
     return (
       <>
         <Modal
+          title={state.title}
           visible={state.visible}
           maskClosable={state.maskClosable}
           closable={state.closable}

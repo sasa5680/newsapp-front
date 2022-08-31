@@ -19,14 +19,12 @@ export default function SearchPage({}){
 
   const searchMutation = useMutation(readNewsListUser, {
     onMutate: (variable) => {
-      console.log("onMutate", variable);
     },
     onError: (error, variable, context) => {
       // error
     },
     onSuccess: (data, variables, context) => {
       setPageState({ ...pageState, page:data.data.page , isLast: data.data.last });
-      console.log(data.data.isLast);
       setNewsItems((newsItems) => [...newsItems, ...data.data.content]);
 
     },
@@ -149,21 +147,17 @@ const SearchButton = styled.button`
 `;
 
 const CardBox = styled.div`
-  width: 70%;
+  width: 80%;
   margin-top: 30px;
 `;
 
 const CardContainer = styled.div`
-  
-
   &:first-child {
     border-top: 1px solid #525252;
   }
 
-  
-
   border-bottom: 1px solid #525252;
 
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 40px;
+  padding-bottom: 40px;
 `;

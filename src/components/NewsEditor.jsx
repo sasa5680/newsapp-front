@@ -11,7 +11,7 @@ import Crop from "./Crop";
 import Button from "./elements/Button";
 import ModalPreview from "./modal/ModalPreview";
 import ModalPreviewBig from "./modal/ModalPreviewBig";
-import ModalTask from "./modal/ModalTask";
+import ModalTask from "./modal/ModalConfirm";
 import PageExitAlert from "./PageExitAlert";
 import { NEWS_CATE } from "../const";
 import { blobToDataURL } from "../utils";
@@ -20,18 +20,9 @@ import { blobToDataURL } from "../utils";
   const titleMax = 40;
   const subTitleMax = 40;
 
-  //카테고리 옵션들
-  const option = [
-    { value: "world", label: "world" },
-    { value: "science", label: "science" },
-    { value: "economy", label: "economy" },
-  ];
-  
   const options = Object.keys(NEWS_CATE).map((key)=> {
     return {value: key, label: key};
   })
-
-  console.log(options, option);
 
 export default function NewsEditor({initData, onSubmit, exitState = false}){
 
@@ -51,6 +42,7 @@ export default function NewsEditor({initData, onSubmit, exitState = false}){
     const formData = new FormData();
 
     let newsProfile = await (await fetch(newsState.newsProfile)).blob(); 
+    console.log(newsProfile)
     setNewsState((state) => ({ ...state, newsProfile: newsProfile }));
 
     console.log(newsState.newsProfile);

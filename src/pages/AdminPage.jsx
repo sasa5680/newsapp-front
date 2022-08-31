@@ -79,7 +79,6 @@ export default function AdminPage({}) {
 
   //페이지 이동 시
   const pageFetch = (page) => {
-    console.log(page)
     setNewsState((state)=> { return {...state, page: page-1}});
   }
 

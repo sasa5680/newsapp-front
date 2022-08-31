@@ -2,12 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import Select from "react-select";
 
+import { NEWS_CATE } from "../../const";
+
   //카테고리 옵션들
-const options = [
-    { value: "world", label: "world" },
-    { value: "science", label: "science" },
-    { value: "economy", label: "economy" },
-];
+  const options = Object.keys(NEWS_CATE).map((key) => {
+    return { value: key, label: key };
+  });
 
 export default function CateOption({onChange, width, fontSize}){
   return (

@@ -9,7 +9,6 @@ const NEWS_API_URL = BASE_URL + "/api/news";
 export async function readNews(id) {
 
   const URL = NEWS_API_URL + `/${id}`;
-  console.log(URL)
   const res = await axios.get(URL);
 
   return res;
@@ -62,7 +61,6 @@ export async function newsList(data){
 //뉴스 목록으로 읽어오기(일반 유저용)
 export async function readNewsListUser(data) {
   const URL = NEWS_API_URL + "/user" + queryBuilder(data) + "&sort=newsId,desc";
-  console.log(URL)
   const res = await axios.get(URL);
 
   return res;

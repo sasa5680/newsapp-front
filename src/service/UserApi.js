@@ -47,9 +47,15 @@ export async function readUser(userName) {
 }
 
 //유저 업데이트
-export async function updateUser(username, form) {
-  const URL = USER_API_URL + `/${username}`;
-  const res = await axiosWithToken.put(URL);
+export async function updateUser({userId, form}) {
+  
+
+  const URL = USER_API_URL + `/${userId}`;
+  const res = await axiosWithToken.put(URL, form, {
+    headers: {
+      "Context-Type": "multipart/form-data",
+    },
+  });
 
   return res;
 }

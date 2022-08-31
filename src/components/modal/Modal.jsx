@@ -14,6 +14,7 @@ function Modal({
   width = "360px",
   height = "wrap-content",
   big = false,
+  showFooter = false,
 }) {
   const onMaskClick = (e) => {
     if (e.target === e.currentTarget) {
@@ -21,11 +22,6 @@ function Modal({
     }
   };
 
-  const close = (e) => {
-    if (onClose) {
-      onClose();
-    }
-  };
   return (
     <>
       <ModalOverlay visible={visible} />
