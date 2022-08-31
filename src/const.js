@@ -1,5 +1,5 @@
 export const BASE_URL = process.env.REACT_APP_API_SERVR; // api 서버 주소
-
+export const ClIENT_URL = "https://myopennews.herokuapp.com"
 //유저 타입
 export const USER_TYPE = {
 

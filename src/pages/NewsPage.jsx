@@ -13,6 +13,7 @@ import { StyleSubTitle } from "../styles/Common";
 import { readNews } from "../service/NewsApi";
 import ContentLink from "../components/ContentLink";
 import Loading from "../components/Loading";
+import { ClIENT_URL } from "../const";
 
 export default function NewsPage({ match }) {
 
@@ -23,6 +24,7 @@ export default function NewsPage({ match }) {
   );
 
   if (isLoading) return <Loading/>
+
 
   return (
     <>
@@ -77,15 +79,15 @@ export const NewsForm = ({width, newsData}) => {
         {/* 소셜 버튼 */}
         <SocialButtonsBox>
           <FacebookShareButton
-            url={"www.naver.com"} //eg. https://www.example.com
-            //quotes={"dddd"} //"Your Quotes"
+            url={ClIENT_URL + `news/${newsData.newsId}`} //eg. https://www.example.com
+            quotes={newsData.newsTitle + "\n"} //"Your Quotes"
             //hashtag={"dd"} // #hashTag
           >
             <FacebookIcon size={40} round />
           </FacebookShareButton>
 
           <TwitterShareButton
-            url={"https://zapier.com/blog/best-news-apps/#.Ys5LqyrLuaI.twitter"}
+            url={ClIENT_URL + `news/${newsData.newsId}`}
             title={newsData.newsTitle + "\n"}
             className="Demo__some-network__share-button"
           >
