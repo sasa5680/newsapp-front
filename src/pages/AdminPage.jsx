@@ -11,7 +11,6 @@ import {
 } from "react-contexify";
 import "react-contexify/dist/ReactContexify.css";
 
-
 import styled from "styled-components";
 import ContextMenu from "../components/ContextMenu";
 import SearchBar from "../components/elements/SearchBar";

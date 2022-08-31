@@ -1,22 +1,27 @@
 
 import React from "react";
-import { useQuery } from "react-query";
+import { useQuery, useMutation } from "react-query";
+import { useHistory } from "react-router-dom";
 import { FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon } from "react-share";
 import parse from "html-react-parser";
 import styled from "styled-components";
 
+import { useAccountState } from "../context/AccountContext";
 import CardSmall from "../components/newsCard/CardSmall";
 
 import "./EditorParseStyle.css";
+import ModalConfirm from "../components/modal/ModalConfirm";
 import Meta from "../components/Meta";
 import { StyleSubTitle } from "../styles/Common";
-import { readNews } from "../service/NewsApi";
+import { readNews, deleteNews } from "../service/NewsApi";
 import ContentLink from "../components/ContentLink";
 import Loading from "../components/Loading";
 import { ClIENT_URL } from "../const";
 import { dateConverter, dateConverterToTime } from "../utils";
+import Button from "../components/elements/Button";
 
 export default function NewsPage({ match }) {
+
 
   //fetch
   const { isLoading, data: newsData } = useQuery(
@@ -61,6 +66,34 @@ export default function NewsPage({ match }) {
 }
 
 export const NewsForm = ({width, newsData}) => {
+  const accountState = useAccountState();
+  const history = useHistory();
+
+  const { openModal, startLoading, openSuccess, openFail, ConfirmModal } =
+    ModalConfirm();
+
+  /* 뉴스 삭제 뮤테이션 */
+  const newsDelteMutation = useMutation(deleteNews, {
+    onMutate: (variable) => {
+      startLoading();
+    },
+    onError: (error, variable, context) => {
+      openFail();
+    },
+    onSuccess: (data, variables, context) => {
+      openSuccess({ content: "삭제 완료되었습니다.", closable: false });
+      setTimeout(()=> {history.push("/")}, 3000);
+    },
+  });
+
+  function handleDeleteClick() {
+    openModal({
+      content: "정말 삭제하시겠습니까?",
+      onClick: () => {
+        newsDelteMutation.mutate(newsData.newsId);
+      },
+    });
+  }
 
   return (
     <ContentBox width={width}>
@@ -80,10 +113,26 @@ export const NewsForm = ({width, newsData}) => {
           PUBLISHED {dateConverter(newsData?.createdAt) || "01/01/1970"}
         </div>
 
+        {accountState.userName === newsData?.user?.userName && (
+          <ButtonBox>
+            <Button
+              width={"50px"}
+              onClick={() => {
+                history.push(`/update/${newsData.newsId}`);
+              }}
+            >
+              update
+            </Button>
+            <Button width={"50px"} onClick={handleDeleteClick}>
+              delete
+            </Button>
+          </ButtonBox>
+        )}
+
         {/* 소셜 버튼 */}
         <SocialButtonsBox>
           <FacebookShareButton
-            url={ClIENT_URL + `/news/${newsData.newsId}`} //eg. https://www.example.com
+            url={ClIENT_URL + `/news/${newsData?.newsId}`} //eg. https://www.example.com
             quotes={newsData.newsTitle + "\n"} //"Your Quotes"
             //hashtag={"dd"} // #hashTag
           >
@@ -128,7 +177,7 @@ export const NewsForm = ({width, newsData}) => {
           <WriterProfile src={newsData?.user?.userProfile}></WriterProfile>
         </WriterBox>
       </ContentLink>
-
+      <ConfirmModal/>
       <Line />
     </ContentBox>
   );
@@ -180,10 +229,21 @@ const TimeBox = styled.div`
   margin-top: 20px;
 `;
 
+const ButtonBox = styled.div`
+  display: flex;
+  margin-left: 10px;
+  grid-gap: 10px;
+
+  @media screen and (max-width: 900px) {
+    display: none;
+  }
+`;
+
 const SocialButtonsBox = styled.div`
   margin-left: auto;
   grid-gap: 5px;
   display: flex;
+
 `;
 
 const Line = styled.div`
