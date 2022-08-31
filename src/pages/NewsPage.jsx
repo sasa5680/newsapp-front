@@ -79,7 +79,7 @@ export const NewsForm = ({width, newsData}) => {
         {/* 소셜 버튼 */}
         <SocialButtonsBox>
           <FacebookShareButton
-            url={ClIENT_URL + `news/${newsData.newsId}`} //eg. https://www.example.com
+            url={ClIENT_URL + `/news/${newsData.newsId}`} //eg. https://www.example.com
             quotes={newsData.newsTitle + "\n"} //"Your Quotes"
             //hashtag={"dd"} // #hashTag
           >
@@ -87,7 +87,7 @@ export const NewsForm = ({width, newsData}) => {
           </FacebookShareButton>
 
           <TwitterShareButton
-            url={ClIENT_URL + `news/${newsData.newsId}`}
+            url={ClIENT_URL + `/news/${newsData.newsId}`}
             title={newsData.newsTitle + "\n"}
             className="Demo__some-network__share-button"
           >
