@@ -14,6 +14,7 @@ import { readNews } from "../service/NewsApi";
 import ContentLink from "../components/ContentLink";
 import Loading from "../components/Loading";
 import { ClIENT_URL } from "../const";
+import { dateConverter, dateConverterToTime } from "../utils";
 
 export default function NewsPage({ match }) {
 
@@ -25,10 +26,12 @@ export default function NewsPage({ match }) {
 
   if (isLoading) return <Loading/>
 
-
   return (
     <>
-      <Meta />
+      <Meta
+        newsTitle={newsData?.data.newsTitle}
+        newsImage={newsData?.data.newsImage}
+      />
       {/* <a
         href="https://twitter.com/intent/tweet?text=this is a test&amp;via=sasa5680&amp;url=http://localhost:3000/news/&amp;original_referer=URL&amp;cid=article_share_twitter"
         data-key="twitter"
@@ -52,7 +55,6 @@ export default function NewsPage({ match }) {
             </RelatedNewsContainer>
           );
         })}
-
       </RelatedNewsBox>
     </>
   );
@@ -74,7 +76,9 @@ export const NewsForm = ({width, newsData}) => {
       {/* 작성 시간, 소셜 버튼 */}
       <TimeBox>
         {/* 작성 시간 */}
-        <div>PUBLISHED {newsData?.createdAt || "01/01/1970"}</div>
+        <div>
+          PUBLISHED {dateConverter(newsData?.createdAt) || "01/01/1970"}
+        </div>
 
         {/* 소셜 버튼 */}
         <SocialButtonsBox>
