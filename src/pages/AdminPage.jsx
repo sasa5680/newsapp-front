@@ -285,6 +285,9 @@ export default function AdminPage({}) {
             <ResetButtonBox>
               <Button onClick={reset}>Reset</Button>
             </ResetButtonBox>
+
+            <Button onClick={()=>{history.push("/")}}>Edit News</Button>
+
           </SearchBox>
         </TitleBox>
         <TitleList>

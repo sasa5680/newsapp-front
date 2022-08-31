@@ -11,10 +11,10 @@ import Crop from "./Crop";
 import Button from "./elements/Button";
 import ModalPreview from "./modal/ModalPreview";
 import ModalPreviewBig from "./modal/ModalPreviewBig";
-import ModalTask from "./modal/ModalConfirm";
 import PageExitAlert from "./PageExitAlert";
 import { NEWS_CATE } from "../const";
 import { blobToDataURL } from "../utils";
+import ModalConfirm from "./modal/ModalConfirm";
 
 //글자수 제한
   const titleMax = 40;
@@ -26,7 +26,7 @@ import { blobToDataURL } from "../utils";
 
 export default function NewsEditor({initData, onSubmit, exitState = false}){
 
-  const {openSuccess, openFail, ModalView } = ModalTask();
+  const { openSuccess, openFail, ConfirmModal } = ModalConfirm();
 
   const [preModal, setPreModal] = useState(false);
   const [preModalBig, setPreModalBig] = useState(false);
@@ -67,7 +67,9 @@ export default function NewsEditor({initData, onSubmit, exitState = false}){
           initSrc={initData?.newsProfile}
           onCrop={(data) => {
             //setNewsState((state) => ({ ...state, newsProfile: data }));
-            blobToDataURL(data, (res) => {setNewsState((state) => ({ ...state, newsProfile: res }));})
+            blobToDataURL(data, (res) => {
+              setNewsState((state) => ({ ...state, newsProfile: res }));
+            });
           }}
         />
       </FormItemBox>
@@ -180,7 +182,7 @@ export default function NewsEditor({initData, onSubmit, exitState = false}){
         onClose={() => setPreModalBig(false)}
         newsData={newsState}
       ></ModalPreviewBig>
-      <ModalView />
+      <ConfirmModal />
       <div style={{ marginBottom: "30px" }}></div>
     </>
   );

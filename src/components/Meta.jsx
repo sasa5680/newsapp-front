@@ -19,7 +19,7 @@ export default function Meta({newsTitle, newsImage}) {
         {/* 페이스북용 open graph */}
         <meta
           property="og:url"
-          content="http://www.nytimes.com/2015/02/19/arts/international/when-great-minds-dont-think-alike.html"
+          content="https://www.wired.com/story/writer-sayaka-murata-inhabits-a-planet-of-her-own"
         />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={newsTitle} />
@@ -27,10 +27,7 @@ export default function Meta({newsTitle, newsImage}) {
           property="og:description"
           content="How much does culture influence creative thinking?"
         />
-        <meta
-          property="og:image"
-          content={newsImage}
-        />
+        <meta property="og:image" content={newsImage} />
       </Helmet>
     );
 }
