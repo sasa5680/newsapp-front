@@ -12,6 +12,7 @@ import Meta from "../components/Meta";
 import { StyleSubTitle } from "../styles/Common";
 import { readNews } from "../service/NewsApi";
 import ContentLink from "../components/ContentLink";
+import Loading from "../components/Loading";
 
 export default function NewsPage({ match }) {
 
@@ -20,7 +21,9 @@ export default function NewsPage({ match }) {
     ["News", match.params.id],
     () => readNews(match.params.id)
   );
-  
+
+  if (isLoading) return <Loading/>
+
   return (
     <>
       <Meta />

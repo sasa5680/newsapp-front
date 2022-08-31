@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useQuery, useMutation } from "react-query";
 
 import styled from "styled-components";
+import Loading from "../components/Loading";
 import CardBig from "../components/newsCard/CardBig";
 import CardLiner from "../components/newsCard/CardLiner";
 import ScrollLoading from "../components/ScrollLoading";
@@ -47,6 +48,9 @@ export default function CatePage({ match }) {
       isLast: false,
     })
   }, [match])
+
+  if(isLoading) return <Loading/>
+
   return (
     <>
       <CateTitle>{match.params.cate}</CateTitle>

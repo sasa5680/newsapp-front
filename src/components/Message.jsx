@@ -4,6 +4,7 @@ import Stomp from "stompjs";
 import styled from "styled-components";
 import ContentLink from './ContentLink';
 
+import { BASE_URL } from "../const";
 //요소 보여줄 시간 (ms)
 const ShowTime = 7000;
 
@@ -16,7 +17,7 @@ export default function Message () {
   });
   const [visible, setVisible] = useState(false);
 
-  let sockJS = new SockJS("http://localhost:8080/socket");
+  let sockJS = new SockJS(BASE_URL + "/socket");
   let stompClient = Stomp.over(sockJS);
   stompClient.debug = () => {};
   

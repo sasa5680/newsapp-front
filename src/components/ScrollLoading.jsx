@@ -46,7 +46,5 @@ const InterSectionBox = styled.div`
 
   width: 100%;
   height: 50px;
-  background-color: blue;
-
 `
 
