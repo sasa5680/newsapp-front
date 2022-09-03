@@ -1,9 +1,12 @@
 import React, { useEffect } from "react";
-
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import {Logo, LogoText} from "../Logo";
 
 export default function Footer() {
+
+  const histroy = useHistory();
+
   return (
     <FooterDiv>
       <InnerBox>
@@ -23,7 +26,21 @@ export default function Footer() {
           <InfoBox>
             <ContentBox>
               <ContentTitle>Navigation</ContentTitle>
-              <Content>About</Content>
+              <Content onClick={() => histroy.push("/")}>
+                Main
+              </Content>
+              <Content onClick={() => histroy.push("/cate/world")}>
+                World
+              </Content>
+              <Content onClick={() => histroy.push("/cate/science")}>
+                Science
+              </Content>
+              <Content onClick={() => histroy.push("/cate/economy")}>
+                Economy
+              </Content>
+              <Content onClick={() => histroy.push("/cate/tech")}>
+                Tech
+              </Content>
             </ContentBox>
             <ContentBox>
               <ContentTitle>Contact</ContentTitle>
@@ -33,6 +50,9 @@ export default function Footer() {
             </ContentBox>
             <ContentBox>
               <ContentTitle>SomeThing</ContentTitle>
+              <Content>dummy</Content>
+              <Content>dummy</Content>
+              <Content>dummy</Content>
             </ContentBox>
           </InfoBox>
         </Mainbox>
@@ -129,7 +149,6 @@ const ContentBox = styled.div`
   width: 15vw;
   height: 100%;
   text-align: center;
-  //background-color: aqua;
 `;
 
 const ContentTitle = styled.div`
@@ -141,6 +160,10 @@ const ContentTitle = styled.div`
 const Content = styled.div`
   font-weight: ${({ theme }) => theme.fontWeight.thin};
   color: ${({ theme }) => theme.colors.gray};
+  cursor: pointer;
+  :hover {
+    color: ${({ theme }) => theme.colors.secondary};
+  }
 `;
 
 const SocialBox = styled.div`

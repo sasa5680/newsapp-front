@@ -45,9 +45,6 @@ export default function Header() {
             <MenuItem>
               <MenuLink to={`/cate/tech`}>TECH</MenuLink>
             </MenuItem>
-            <MenuItem>
-              <MenuLink to={`/about`}>ABOUT</MenuLink>
-            </MenuItem>
             {accountState.userRole === "ADMIN" && (
               <MenuItem>
                 <MenuLink to={`/admin`}>ADMIN</MenuLink>

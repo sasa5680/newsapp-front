@@ -150,20 +150,20 @@ export default function NewsEditor({initData, onSubmit, exitState = false}){
 
         <ButtonBox>
           <Button
-            width={"80px"}
+            width={"100px"}
             onClick={() => {
               setPreModal(true);
             }}
           >
-            PREVIEW
+            NEWS
           </Button>
           <Button
-            width={"80px"}
+            width={"100px"}
             onClick={() => {
               setPreModalBig(true);
             }}
           >
-            PREVIEW Big
+            PREVIEW
           </Button>
         </ButtonBox>
       </FormItemBox>

@@ -14,7 +14,9 @@ import Loading from "../components/Loading";
 
 export default function MainPage() {
   //fetch
-  const { isError, isLoading, data: newsData } = useQuery(["Main"], readMainNews);
+  const { isError, isLoading, data: newsData } = useQuery(["Main"], readMainNews, {
+    retry: 1
+  });
 
   if(isLoading) {
     return <Loading></Loading>;

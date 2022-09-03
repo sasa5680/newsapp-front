@@ -2,6 +2,7 @@
 import React from "react";
 import { useQuery, useMutation } from "react-query";
 import { useHistory } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon } from "react-share";
 import parse from "html-react-parser";
 import styled from "styled-components";
@@ -19,6 +20,8 @@ import Loading from "../components/Loading";
 import { ClIENT_URL } from "../const";
 import { dateConverter, dateConverterToTime } from "../utils";
 import Button from "../components/elements/Button";
+import { createReply } from "../service/ReplyApi";
+import Reply from "../components/Reply";
 
 export default function NewsPage({ match }) {
 
@@ -26,7 +29,8 @@ export default function NewsPage({ match }) {
   //fetch
   const { isLoading, data: newsData } = useQuery(
     ["News", match.params.id],
-    () => readNews(match.params.id)
+    () => readNews(match.params.id),
+    {onMutate:()=>{console.log("mutate")}}
   );
 
   if (isLoading) return <Loading/>
@@ -51,7 +55,7 @@ export default function NewsPage({ match }) {
       {!isLoading && <NewsForm newsData={newsData?.data}></NewsForm>}
 
       {/* 연관 뉴스들 */}
-      <h1>More Stories</h1>
+      <h1 style={{marginTop: "20px"}}>More Stories</h1>
       <RelatedNewsBox>
         {newsData?.data.relatedNews.map((newsData) => {
           return (
@@ -66,11 +70,21 @@ export default function NewsPage({ match }) {
 }
 
 export const NewsForm = ({width, newsData}) => {
+
+  console.log(newsData)
   const accountState = useAccountState();
   const history = useHistory();
 
   const { openModal, startLoading, openSuccess, openFail, ConfirmModal } =
     ModalConfirm();
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    trigger,
+  } = useForm();
 
   /* 뉴스 삭제 뮤테이션 */
   const newsDelteMutation = useMutation(deleteNews, {
@@ -85,6 +99,31 @@ export const NewsForm = ({width, newsData}) => {
       setTimeout(()=> {history.push("/")}, 3000);
     },
   });
+
+  /* 댓글 다는 뮤테이션 */
+  const replyCreateMutation = useMutation(createReply, {
+    onMutate: ()=> {
+    },
+    onError: () => {
+      openFail({content: "에러가 발생했습니다!"})
+    },
+    onSuccess: () => {
+      openSuccess({ content: "등록되었습니다!", closable: true });
+      setTimeout(()=>{window.location.reload()}, 3000)
+    }
+  })
+
+  const handleReplyClick = () => {
+    openModal({
+      content: "등록하시겠습니까?",
+      onClick: () =>
+        replyCreateMutation.mutate({
+          newsId: newsData?.newsId,
+          replyContent: watch("replyContent"),
+        }),
+    });
+
+  }
 
   function handleDeleteClick() {
     openModal({
@@ -133,15 +172,15 @@ export const NewsForm = ({width, newsData}) => {
         <SocialButtonsBox>
           <FacebookShareButton
             url={ClIENT_URL + `/news/${newsData?.newsId}`} //eg. https://www.example.com
-            quotes={newsData.newsTitle + "\n"} //"Your Quotes"
+            quotes={newsData?.newsTitle + "\n"} //"Your Quotes"
             //hashtag={"dd"} // #hashTag
           >
             <FacebookIcon size={40} round />
           </FacebookShareButton>
 
           <TwitterShareButton
-            url={ClIENT_URL + `/news/${newsData.newsId}`}
-            title={newsData.newsTitle + "\n"}
+            url={ClIENT_URL + `/news/${newsData?.newsId}`}
+            title={newsData?.newsTitle + "\n"}
             className="Demo__some-network__share-button"
           >
             <TwitterIcon size={40} round />
@@ -177,8 +216,21 @@ export const NewsForm = ({width, newsData}) => {
           <WriterProfile src={newsData?.user?.userProfile}></WriterProfile>
         </WriterBox>
       </ContentLink>
-      <ConfirmModal/>
+      <ConfirmModal />
       <Line />
+
+      <ReplyBox>
+        {accountState.isLogin && (<InputBox>
+          <StyledTextArea
+            {...register("replyContent")}
+            placeholder={"leave a comment"}
+          />
+          <Button width={"20%"} height={"100%"} onClick={handleReplyClick}>
+            입력
+          </Button>
+        </InputBox>)}
+        <Reply list={newsData?.reply}></Reply>
+      </ReplyBox>
     </ContentBox>
   );
 }
@@ -273,7 +325,7 @@ const WriterBox = styled.div`
   display: flex;
   align-items: center;
 
-  margin-top: 10px;
+  margin-top: 50px;
   width: 100%;
   height: 40px;
 
@@ -311,4 +363,22 @@ const RelatedNewsBox = styled.div`
     display: grid;
     row-gap: 40px;
   }
+`;
+
+const ReplyBox = styled.div`
+  margin-top: 30px;
+`
+
+const InputBox = styled.div`
+  display: flex;
+  height: 80px;
+
+`
+
+const StyledTextArea = styled.textarea`
+  width: 80%;
+  height: 100%;
+  font-size: 20px;
+  border: none;
+  padding: 10px;
 `;
