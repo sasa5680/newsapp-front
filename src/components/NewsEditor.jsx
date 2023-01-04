@@ -16,6 +16,8 @@ import { NEWS_CATE } from "../const";
 import { blobToDataURL } from "../utils";
 import ModalConfirm from "./modal/ModalConfirm";
 
+import "./CKEditor.css"
+
 //글자수 제한
   const titleMax = 40;
   const subTitleMax = 40;
@@ -58,6 +60,37 @@ export default function NewsEditor({initData, onSubmit, exitState = false}){
     setNewsState(initData);
   }, [initData])
 
+  const customStyles = {
+    control: (base, state) => ({
+      ...base,
+      background: "#023950",
+      // match with the menu
+      borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
+      // Overwrittes the different states of border
+      // borderColor: state.isFocused ? "yellow" : "green",
+      // Removes weird border around container
+      boxShadow: state.isFocused ? null : null,
+      "&:hover": {
+        // Overwrittes the different states of border
+        //borderColor: state.isFocused ? "red" : "blue",
+      },
+    }),
+    menu: (base) => ({
+      ...base,
+      // override border radius to match the box
+      borderRadius: 0,
+      // kill the gap
+      marginTop: 0,
+    }),
+    menuList: (base) => ({
+      backgroundColor: "gray",
+      ...base,
+      // kill the white space on first and last option
+      padding: 0,
+    }),
+  };
+
+
   return (
     <>
       {!exitState && <PageExitAlert isDirty={true} />}
@@ -78,7 +111,7 @@ export default function NewsEditor({initData, onSubmit, exitState = false}){
         <TitleBox>뉴스 Category</TitleBox>
         <OptionBox>
           <Select
-            styles={{ width: "70%" }}
+            styles={customStyles}
             defaultValue={
               options.filter((option) => option.label === "world")[0]
             }
@@ -92,7 +125,7 @@ export default function NewsEditor({initData, onSubmit, exitState = false}){
 
       <FormItemBox>
         <TitleBox>뉴스 TITLE</TitleBox>
-        <textarea
+        <StyledTextArea
           value={newsState?.newsTitle}
           style={{ fontSize: "25px" }}
           class="form-control"
@@ -109,7 +142,7 @@ export default function NewsEditor({initData, onSubmit, exitState = false}){
 
       <FormItemBox>
         <TitleBox>뉴스 SUBTITLE</TitleBox>
-        <textarea
+        <StyledTextArea
           value={newsState?.newsSubTitle}
           style={{ fontSize: "25px" }}
           class="form-control"
@@ -129,20 +162,22 @@ export default function NewsEditor({initData, onSubmit, exitState = false}){
 
       <FormItemBox>
         <TitleBox>뉴스 CONTENT</TitleBox>
-        <CKEditor
-          editor={Editor}
-          data={initData?.newsContent}
-          onReady={(editor) => {
-            // You can store the "editor" and use when it is needed.
-            console.log("Editor is ready to use!", editor);
-          }}
-          onChange={(event, editor) => {
-            const data = editor.getData();
-            setNewsState((state) => ({ ...state, newsContent: data }));
-          }}
-          onBlur={(event, editor) => {}}
-          onFocus={(event, editor) => {}}
-        />
+        <CkEditorBox>
+          <CKEditor
+            editor={Editor}
+            data={initData?.newsContent}
+            onReady={(editor) => {
+              // You can store the "editor" and use when it is needed.
+              console.log("Editor is ready to use!", editor);
+            }}
+            onChange={(event, editor) => {
+              const data = editor.getData();
+              setNewsState((state) => ({ ...state, newsContent: data }));
+            }}
+            onBlur={(event, editor) => {}}
+            onFocus={(event, editor) => {}}
+          />
+        </CkEditorBox>
       </FormItemBox>
 
       <FormItemBox>
@@ -198,6 +233,13 @@ const FormItemBox = styled.div`
   margin-top: 30px;
 `
 
+const StyledTextArea = styled.textarea`
+  background-color: #383838;
+  width: 100%;
+  padding: 10px;
+  color: white;
+`
+
 const WordCounter = styled.div`
   margin-top: 10px;
   display: flex;
@@ -217,4 +259,7 @@ const UploadButtonBox = styled.div`
  margin-top: 30px;
  width: 300px;
  height: 50px;
+`
+const CkEditorBox = styled.div`
+  background-color: gray !important;
 `

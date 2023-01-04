@@ -1,0 +1,19 @@
+.ck.ck-icon {
+    color: white;
+}
+
+.ck.ck-dropdown .ck-button.ck-dropdown__button{
+    color: white;
+}
+
+.ck.ck-editor__main>.ck-editor__editable {
+
+    background-color: rgb(58, 58, 58);
+}
+
+
+
+.ck-toolbar_grouping[role="toolbar"] {
+    background-color: rgb(26, 26, 26);
+    color: white;
+}

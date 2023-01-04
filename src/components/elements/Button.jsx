@@ -29,7 +29,7 @@ const StyledButton = styled.button`
   background-color: ${({props, theme }) =>  theme.colors.primary};
   
   color: white;
-  box-shadow: 0px 2px 2px #ddd;
+  //box-shadow: 0px 2px 2px #ddd;
   border: none;
   display: flex;
   justify-content: center;
@@ -39,6 +39,7 @@ const StyledButton = styled.button`
   height: ${(props) => props.height};
   font-size: ${(props) => props.fontSize};
   &:hover {
+    border: none;
     background-color: #172d40;
     color: #fff;
     transform: translate();

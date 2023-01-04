@@ -92,7 +92,7 @@ const ModalOverlay = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.322);
   z-index: 999;
   
 `;
@@ -101,7 +101,7 @@ const ModalInner = styled.div`
   box-sizing: border-box;
   position: relative;
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
-  background-color: #fff;
+  background-color: #3e3e3e;
   width: ${(props) => props.width || "360px"};
   height: ${(props) => props.height || "wrap-content"};
 
